@@ -1,4 +1,4 @@
-package com.example.mealplanner;
+package com.example.mealplanner.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.example.mealplanner.R;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private MotionLayout motionLayout;
@@ -14,7 +16,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen_layout);
+        setContentView(R.layout.activity_splash_screen);
         getSupportActionBar().hide();
         motionLayout = findViewById(R.id.motion_layout);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
