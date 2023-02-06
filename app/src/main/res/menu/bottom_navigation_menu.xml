@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_fragment"
+        android:enabled="true"
+        android:icon="@mipmap/home_48px"
+        android:title="@string/ic_home"/>
+
+    <item
+        android:id="@+id/search_fragment"
+        android:enabled="true"
+        android:icon="@mipmap/search_48px"
+        android:title="@string/ic_search"/>
+
+    <item
+        android:id="@+id/planned_meals_fragment"
+        android:enabled="true"
+        android:icon="@mipmap/bookmark_48px"
+        android:title="@string/ic_bookmarks"/>
+
+    <item
+        android:id="@+id/notifications_fragment"
+        android:enabled="true"
+        android:icon="@mipmap/notifications_48px"
+        android:title="@string/ic_notifications"/>
+
+    <item
+        android:id="@+id/profile_fragment"
+        android:enabled="true"
+        android:icon="@mipmap/profile_48px"
+        android:title="@string/ic_profile"/>
+
+</menu>
