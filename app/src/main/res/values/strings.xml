@@ -2,6 +2,7 @@
     <string name="app_name">MealPlanner</string>
     <string name="tv_login">Login</string>
     <string name="tv_login_welcome_message">It\'s great to have you back!</string>
+
     <string name="et_username">Username</string>
     <string name="et_password">Password</string>
     <string name="btn_login">Login</string>
@@ -10,4 +11,17 @@
     <string name="ic_bookmarks">Bookmarks</string>
     <string name="ic_notifications">Notifications</string>
     <string name="ic_profile">Profile</string>
+
+    <string name="have_account">Already have an account</string>
+    <string name="login">Log In</string>
+    <string name="sign_with_google">Google</string>
+    <string name="sign_with_facebook">Facebook</string>
+    <string name="foodPlanner">Food Planner</string>
+    <string name="signup">Sign Up</string>
+    <string name="haveAccount">Already have an account ?</string>
+    <string name="skip">Skip</string>
+    <string name="btn_next">Next</string>
+    <string name="sign">Sign Up</string>
+    <string name="account">I already have an account</string>
+
 </resources>
