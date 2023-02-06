@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MealPlanner</string>
+    <string name="tv_login">Login</string>
+    <string name="tv_login_welcome_message">It\'s great to have you back!</string>
+</resources>
