@@ -3,7 +3,6 @@ package com.example.mealplanner.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.ui.fragments.HomeFragment;
@@ -13,7 +12,6 @@ import com.example.mealplanner.ui.fragments.ProfileFragment;
 import com.example.mealplanner.ui.fragments.SearchFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 
 public class MainActivity extends AppCompatActivity {
