@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class imageAdapter  extends RecyclerView.Adapter<imageAdapter.onBoardingViewHolder> {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.onBoardingViewHolder> {
 
-        List<onboardingItem> pages;
+        List<OnboardingItem> pages;
 
-        public imageAdapter(@NonNull List<onboardingItem> pages) {
+        public ImageAdapter(@NonNull List<OnboardingItem> pages) {
             this.pages = pages;
 
         }

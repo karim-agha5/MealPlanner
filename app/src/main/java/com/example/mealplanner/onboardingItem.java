@@ -1,18 +1,18 @@
 package com.example.mealplanner;
 
-public class onboardingItem {
+public class OnboardingItem {
     private int image;
     private String title;
     private String description;
 
 
-    public onboardingItem(final int image, final String title, final String description) {
+    public OnboardingItem(final int image, final String title, final String description) {
         this.image = image;
         this.title = title;
         this.description = description;
     }
 
-    public onboardingItem() {
+    public OnboardingItem() {
     }
 
     public int getImage() {

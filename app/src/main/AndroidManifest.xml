@@ -16,10 +16,7 @@
         
 
         <activity
-            android:name=".OnBoardingScreen"
-            android:exported="false" />
-        <activity
-            android:name=".MainScreen"
+            android:name=".ui.activities.OnboardingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.SplashScreenActivity"

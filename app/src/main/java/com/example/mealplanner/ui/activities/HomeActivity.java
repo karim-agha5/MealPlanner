@@ -1,8 +1,10 @@
-package com.example.mealplanner;
+package com.example.mealplanner.ui.activities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mealplanner.R;
 
 public class HomeActivity extends AppCompatActivity {
 

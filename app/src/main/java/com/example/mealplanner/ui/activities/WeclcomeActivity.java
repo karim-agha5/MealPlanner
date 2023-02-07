@@ -1,14 +1,16 @@
-package com.example.mealplanner;
+package com.example.mealplanner.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SignUpScreen extends AppCompatActivity {
+import com.example.mealplanner.R;
+
+public class WeclcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_screen);
+        setContentView(R.layout.activity_welcome);
     }
 }
