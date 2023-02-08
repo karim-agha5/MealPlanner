@@ -19,7 +19,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         getSupportActionBar().hide();
         motionLayout = findViewById(R.id.motion_layout);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         motionLayout.startLayoutAnimation();
@@ -36,7 +36,9 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
+                // TODO go from splash to main screen
                 startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+            //    startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
                 finish();
             }
 
