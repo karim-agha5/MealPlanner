@@ -55,7 +55,7 @@ public class OnboardingActivity extends AppCompatActivity {
                 if(view.getCurrentItem()<adapter.getItemCount()){
                     view.setCurrentItem(view.getCurrentItem()+1);
                 }else{
-                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                 //   startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                     finish();
                 }
             }
