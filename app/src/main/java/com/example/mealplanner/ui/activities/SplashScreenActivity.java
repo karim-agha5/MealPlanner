@@ -37,8 +37,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void onTransitionCompleted(MotionLayout motionLayout, int currentId) {
                 // TODO go from splash to main screen
-                startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
-            //    startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
+            //    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
                 finish();
             }
 
