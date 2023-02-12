@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.example.mealplanner.R;
 
@@ -19,7 +20,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
 
         setUpActionBarWithNavController();
 
