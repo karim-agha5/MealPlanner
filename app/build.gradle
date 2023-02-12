@@ -2,6 +2,11 @@ plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
+<<<<<<< HEAD
+=======
+    id 'com.google.firebase.crashlytics'
+
+>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
 }
 
 android {
@@ -44,8 +49,22 @@ dependencies {
     // Navigation Component
     implementation "androidx.navigation:navigation-fragment:2.5.3"
     implementation "androidx.navigation:navigation-ui:2.5.3"
+<<<<<<< HEAD
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
+=======
+    // Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    // Firebase Libraries
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    //implementation 'com.google.firebase:firebase-crashlytics-gradle'
+
+>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
