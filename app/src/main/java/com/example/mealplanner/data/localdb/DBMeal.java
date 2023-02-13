@@ -1,4 +1,4 @@
-package com.example.mealplanner.data.localdb;
+/*package com.example.mealplanner.data.localdb;
 
 import android.content.Context;
 
@@ -21,4 +21,6 @@ public abstract class DBMeal extends RoomDatabase {
         }
         return instance;
     }
-}
+}*/
+package com.example.mealplanner.data.localdb;
+public class DBMeal{}

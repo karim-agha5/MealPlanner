@@ -6,15 +6,17 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.mealplanner.model.Users;
+import com.example.mealplanner.model.Meal;
+import com.example.mealplanner.model.User;
 
 
-@Database(entities = Users.class, version = 1)
+@Database(entities = {User.class, Meal.class}, version = 1)
 public abstract class DBUser extends RoomDatabase {
 
     private static DBUser instance = null;
 
     public abstract UserDAO userDAO();
+    public abstract MealDAO mealDAO();
 
     public static synchronized DBUser getInstance(Context context) {
         if (instance == null) {

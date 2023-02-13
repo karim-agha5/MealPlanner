@@ -5,16 +5,16 @@ import androidx.room.TypeConverter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-class ArrayConverter {
+public class ArrayConverter {
 
 
     @TypeConverter
-    String fromArrayToString(String[] arr){
+    public String fromArrayToString(String[] arr){
         return new Gson().toJson(arr);
     }
 
     @TypeConverter
-    String[] fromStringToArray(String str){
+    public String[] fromStringToArray(String str){
         return new Gson().fromJson(str,new TypeToken<String[]>(){}.getType());
     }
 

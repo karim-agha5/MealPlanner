@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 
-@Entity(tableName = "users")
-public class Users {
+@Entity(tableName = "user")
+public class User {
 
     @PrimaryKey
     @ColumnInfo (name="id")
@@ -25,10 +25,10 @@ public class Users {
     @Ignore
     private List<String> meal;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(@NonNull final String id, final String name, final List<String> meal) {
+    public User(@NonNull final String id, final String name, final List<String> meal) {
         this.id = id;
         this.name = name;
         this.meal = meal;
