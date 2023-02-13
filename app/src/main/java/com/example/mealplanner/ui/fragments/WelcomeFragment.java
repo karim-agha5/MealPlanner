@@ -201,5 +201,5 @@ public class WelcomeFragment extends Fragment {
         btnSignUpWithGoogle = view.findViewById(R.id.btn_signWithGoogle);
         tvLogin = view.findViewById(R.id.tv_login);
     }
-//>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
+>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
 }
