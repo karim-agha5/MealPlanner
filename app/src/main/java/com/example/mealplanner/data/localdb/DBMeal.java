@@ -1,4 +1,4 @@
-package com.example.mealplanner.database;
+package com.example.mealplanner.data.localdb;
 
 import android.content.Context;
 
@@ -7,7 +7,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.mealplanner.model.MealItem;
-import com.example.mealplanner.model.Users;
 
 @Database(entities = MealItem.class, version = 1)
 public abstract class DBMeal extends RoomDatabase {
