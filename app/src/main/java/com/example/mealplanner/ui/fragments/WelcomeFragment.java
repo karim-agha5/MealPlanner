@@ -67,7 +67,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class WelcomeFragment extends Fragment {
 
     private final int GOOGLE_REQUEST_CODE = 5;
-//>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
+>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
     private Button btnSignUp;
     private Button btnSignUpWithGoogle;
     private GoogleSignInClient googleSignInClient;
@@ -78,7 +78,8 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//<<<<<<< HEAD =======
+<<<<<<< HEAD
+=======
 
         options = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN
@@ -114,7 +115,7 @@ public class WelcomeFragment extends Fragment {
             startActivityForResult(intent,GOOGLE_REQUEST_CODE);
         });
 
-//>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
+>>>>>>> b13012a7318b207934982f134dccb09f0a1ef7d8
 
         btnSignUp.setOnClickListener(
                 (view1) -> {
@@ -137,7 +138,9 @@ public class WelcomeFragment extends Fragment {
 
     }
 
-//<<<<<<< HEAD=======
+<<<<<<< HEAD
+
+=======
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
