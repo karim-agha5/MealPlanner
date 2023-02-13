@@ -16,6 +16,9 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
 
+
+
+
     }
 
 }

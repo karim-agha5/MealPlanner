@@ -1,17 +1,23 @@
-package com.example.mealplanner.data.localdb;
+package com.example.mealplanner.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-@Entity(tableName = "meal")
+import com.example.mealplanner.data.localdb.ArrayConverter;
+
+@Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})
 @TypeConverters(ArrayConverter.class)
 public class Meal {
 
+    @NonNull
+    @ColumnInfo(name = "user_id")
+    private String userId;
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @NonNull
+    @ColumnInfo(name = "meal_id")
     private String id;
 
     @ColumnInfo(name = "name")

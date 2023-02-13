@@ -5,23 +5,22 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.mealplanner.model.Meal;
 import com.example.mealplanner.model.MealItem;
-import com.example.mealplanner.model.Users;
 
 import java.util.List;
-
-import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface MealDAO {
 
       /*  @Query("SELECT * FROM MealsItem")
         Flowable<List<Users>> getAllMealItem();*/
-
+        @Query("SELECT * FROM meal")
+        List<Meal> getAllMeals();
 
         @Insert
-        void insertUser(MealItem mealItem);
+        void insertUser(Meal meal);
 
         @Delete
-        void deleteUser(MealItem mealItem);
+        void deleteUser(Meal meal);
     }

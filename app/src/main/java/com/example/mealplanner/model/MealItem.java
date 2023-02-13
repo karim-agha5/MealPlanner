@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey;
 
 import java.util.List;
 
-@Entity(tableName = "MealsItem", primaryKeys = {"meal", "weekDay"})
+//@Entity(tableName = "MealsItem", primaryKeys = {"meal", "weekDay"})
 public class MealItem {
 
-
+/*
     @NonNull
     private String meal;
     @NonNull
@@ -41,5 +41,5 @@ public class MealItem {
 
     public void setWeekDay(@NonNull final String weekDay) {
         this.weekDay = weekDay;
-    }
+    }*/
 }
