@@ -1,5 +1,7 @@
 package com.example.mealplanner.ui.fragments;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
@@ -24,13 +25,22 @@ import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
 
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Arrays;
 
 
 public class WelcomeFragment extends Fragment implements Test {
@@ -43,6 +53,8 @@ public class WelcomeFragment extends Fragment implements Test {
     private TextView tvLogin;
     private final String TAG = "Exception";
     private RegistrationRemoteService registrationRemoteService;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,7 @@ public class WelcomeFragment extends Fragment implements Test {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         btnSignUp = view.findViewById(R.id.btn_sign_up);
         tvLogin = view.findViewById(R.id.tv_login);
@@ -96,6 +109,7 @@ public class WelcomeFragment extends Fragment implements Test {
                     Navigation.findNavController(view).navigate(directions);
                 }
         );
+
 
 
     }
@@ -128,6 +142,7 @@ public class WelcomeFragment extends Fragment implements Test {
                 e.printStackTrace();
             }
         }
+
     }
 
     @Override
@@ -139,6 +154,7 @@ public class WelcomeFragment extends Fragment implements Test {
             startActivity(intent);
             getActivity().finish();
         }
+
     }
 
     @Override
@@ -148,4 +164,13 @@ public class WelcomeFragment extends Fragment implements Test {
         getActivity().finish();
     }
 
+
 }
+
+
+
+
+
+
+
+

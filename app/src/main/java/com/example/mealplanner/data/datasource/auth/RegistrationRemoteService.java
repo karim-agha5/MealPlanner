@@ -16,6 +16,6 @@ public interface RegistrationRemoteService {
     MutableLiveData<Boolean> isSignedUpWithGoogle();
     MutableLiveData<Boolean> isSignedUpWithEmailAndPassword();
     MutableLiveData<DataLayerResponse> signUpWithGoogle() throws ApiException;
-    DataLayerResponse signUpWithEmailAndPassword() throws Exception;
+    DataLayerResponse signUpWithEmailAndPassword(String email,String password);
 
 }
