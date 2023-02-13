@@ -14,9 +14,10 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @Dao
 public interface UserDAO {
-        @Query("SELECT * FROM users")
-        Flowable<List<Users>> getAllUser();
 
+       /* @Query("SELECT * FROM users")
+        Flowable<List<Users>> getAllUser();
+*/
 
         @Insert
         void insertUser(Users user);

@@ -15,8 +15,8 @@ import io.reactivex.rxjava3.core.Flowable;
 @Dao
 public interface MealDAO {
 
-        @Query("SELECT * FROM MealsItem")
-        Flowable<List<Users>> getAllMealItem();
+      /*  @Query("SELECT * FROM MealsItem")
+        Flowable<List<Users>> getAllMealItem();*/
 
 
         @Insert
