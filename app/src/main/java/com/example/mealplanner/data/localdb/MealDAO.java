@@ -6,7 +6,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.model.MealItem;
 
 import java.util.List;
 
