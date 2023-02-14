@@ -2,6 +2,8 @@ package com.example.mealplanner.ui.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -46,6 +48,9 @@ public class WelcomeFragment extends Fragment implements Test {
 
     private final int GOOGLE_REQUEST_CODE = 5;
     private Button btnSignUp;
+
+    private TextView skip;
+
     private Button btnSignUpWithGoogle;
     private GoogleSignInClient googleSignInClient;
     private GoogleSignInOptions options;
@@ -81,9 +86,6 @@ public class WelcomeFragment extends Fragment implements Test {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        btnSignUp = view.findViewById(R.id.btn_sign_up);
-        tvLogin = view.findViewById(R.id.tv_login);
         initUI(view);
 
         btnSignUpWithGoogle.setOnClickListener(view1 -> {
@@ -111,6 +113,32 @@ public class WelcomeFragment extends Fragment implements Test {
                 }
         );
 
+        skip.setOnClickListener((view1)->{
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                        builder.setTitle("Wait! Are You Sure You Want To Skip?");
+                        builder.setMessage("Login as guest");
+                        builder.setCancelable(true);
+
+
+                        builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener)(dialog, which) -> {
+                                Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(WelcomeFragmentDirections
+                                        .actionWelcomeFragmentToHomeFragment());
+
+                        });
+                        builder.setNegativeButton("NO,Go BACK", (DialogInterface.OnClickListener) (dialog, which) -> {
+
+                            dialog.cancel();
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
+
+
+        });
+
+
 
 
     }
@@ -119,6 +147,7 @@ public class WelcomeFragment extends Fragment implements Test {
         btnSignUp = view.findViewById(R.id.btn_sign_up);
         btnSignUpWithGoogle = view.findViewById(R.id.btn_signWithGoogle);
         tvLogin = view.findViewById(R.id.tv_login);
+        skip = view.findViewById(R.id.skipTxt);
     }
 
     @Override
