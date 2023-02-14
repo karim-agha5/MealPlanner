@@ -1,12 +1,15 @@
 package com.example.mealplanner.ui.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +18,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.DataLayerResponse;
+import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
+import com.example.mealplanner.helper.AlertDialogHelper;
+import com.example.mealplanner.helper.ProgressDialogHelper;
+import com.example.mealplanner.helper.Status;
+import com.example.mealplanner.model.User;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.FirebaseNetworkException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpFragment extends Fragment implements Test {
@@ -34,19 +36,17 @@ public class SignUpFragment extends Fragment implements Test {
     private EditText signUp_password;
     private EditText signUp_email;
     private EditText confirmPassword;
-    private FirebaseAuth mAuth;
     private Button signUp;
     private String name;
     private String email;
     private String password;
     private String passwordConfirm;
-    private RegistrationRemoteServiceImpl registrationRemoteService;
+    private RegistrationRemoteService registrationRemoteService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        registrationRemoteService = new RegistrationRemoteServiceImpl(this);
     }
 
     @Override
@@ -67,68 +67,8 @@ public class SignUpFragment extends Fragment implements Test {
         signUp_email = view.findViewById(R.id.emailValue);
         confirmPassword = view.findViewById(R.id.passwordReValue);
         signUp = view.findViewById(R.id.sign_up);
-        mAuth = FirebaseAuth.getInstance();
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                name = signUp_name.getText().toString();
-                email = signUp_email.getText().toString();
-                password = signUp_password.getText().toString();
-                passwordConfirm = confirmPassword.getText().toString();
-
-                if ((!name.isEmpty()) && (!email.isEmpty()) && (!password.isEmpty()) && (password.equals(passwordConfirm))) {
-
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-
-                            if (task.isSuccessful()) {
-                                Toast.makeText(requireContext(), "Registration was successful", Toast.LENGTH_SHORT).show();
-                               // Navigation.findNavController(view).navigate(R.id.HomeFragment);
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                    startActivity(intent);
-                                    getActivity().finish();
-
-                            } else {
-                                Exception exception = task.getException();
-                                if (exception == null) {
-                                    Toast.makeText(getContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
-                                } else if (exception.getClass().equals(FirebaseNetworkException.class)) {
-                                    Toast.makeText(getContext(), "Network error", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")) {
-
-                                        Toast.makeText(getContext(), "Password should be at least 6 characters", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
-                                }
-
-
-                            }
-                        }
-                    });
-
-                } else {
-                    if (name.isEmpty()) {
-                        Toast.makeText(getContext(), "Enter your name", Toast.LENGTH_SHORT).show();
-                    } else if (email.isEmpty()) {
-                        Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
-                    } else if (password.isEmpty()) {
-                        Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
-                    } else if (!password.equals(passwordConfirm)) {
-                        Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                }
-
-            }
-        });
-
+        handlingSignUpButton();
 
     }
     @Override
@@ -156,6 +96,115 @@ public class SignUpFragment extends Fragment implements Test {
 
     @Override
     public void notifyFragment() {
+        homeScreenRedirection();
+    }
 
+    private void homeScreenRedirection(){
+        Activity currentActivity = getActivity();
+        Intent intent = new Intent(currentActivity, MainActivity.class);
+        currentActivity.startActivity(intent);
+        currentActivity.finish();
+    }
+
+    private void getTextsFromEditTexts(){
+        name = signUp_name.getText().toString();
+        email = signUp_email.getText().toString();
+        password = signUp_password.getText().toString();
+        passwordConfirm = confirmPassword.getText().toString();
+    }
+
+    /**
+     * @Returns true if all input the TextFields are valid
+     * */
+    private boolean isUserInputValid(){
+        return (!name.isEmpty()) && (!email.isEmpty()) &&
+                (!password.isEmpty()) && (password.equals(passwordConfirm));
+    }
+
+    private void handleUserInputInvalid(){
+        if (name.isEmpty()) {
+            Toast.makeText(getContext(), "Enter your name", Toast.LENGTH_SHORT).show();
+        } else if (email.isEmpty()) {
+            Toast.makeText(getContext(), "Enter your email", Toast.LENGTH_SHORT).show();
+        } else if (password.isEmpty()) {
+            Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
+        } else if (!password.equals(passwordConfirm)) {
+            Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+    private void handlingSignUpButton(){
+
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getTextsFromEditTexts();
+
+                if (isUserInputValid()) {
+
+                    ProgressDialogHelper progressDialogHelper =
+                            new ProgressDialogHelper(
+                                    getActivity(),
+                                    "Signing you up",
+                                    "Hold on for a moment"
+                            );
+
+                    progressDialogHelper.startProgressDialog();
+
+                    MutableLiveData<DataLayerResponse<User>> response =
+                            registrationRemoteService.signUpWithEmailAndPassword(email,password,getActivity());
+
+
+                    // Set an observer on the response and do some action
+                    response.observe(SignUpFragment.this,userDataLayerResponse -> {
+
+                        Log.i("Exception", "onClick() user status = " +
+                                response.getValue().getStatus());
+
+                        // Stop the dialog and handle both cases of the response
+                        progressDialogHelper.stopProgressDialog();
+                        DataLayerResponse<User> dataLayerResponse = response.getValue();
+
+
+                        /*
+                        * If the user has signed up before
+                        * show a dialog containing the reason the user can't sign up
+                        * The dialog also checks if the response returned has a message or not
+                        * if not, it shows "Unknown Error"
+                        * */
+                        if(dataLayerResponse.getStatus() == Status.FAILURE){
+                            AlertDialogHelper alertDialogHelper =
+                                    new AlertDialogHelper(
+                                            getActivity(),
+                                            null,
+                                            dataLayerResponse.getMessage() != null ?
+                                                    dataLayerResponse.getMessage() : "Unknown Error"
+                                    );
+                            alertDialogHelper.startAlertDialog();
+                        }
+
+
+                        /*
+                            If the user hasn't signed up before.
+                            Destroy this activity and re-direct the user to the Home Screen
+                         */
+                        else{
+                            Toast.makeText(getActivity(), "Thanks for signing up!",
+                                    Toast.LENGTH_SHORT).show();
+                            homeScreenRedirection();
+                        }
+
+
+                    });
+
+
+
+                } else {
+                    handleUserInputInvalid();
+                }
+
+            }
+        });
     }
 }

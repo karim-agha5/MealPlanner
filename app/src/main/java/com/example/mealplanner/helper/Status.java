@@ -1,4 +1,4 @@
-package com.example.mealplanner;
+package com.example.mealplanner.helper;
 
 /*
 * Simplifies the understanding of the status of the DataLayerResponse.
