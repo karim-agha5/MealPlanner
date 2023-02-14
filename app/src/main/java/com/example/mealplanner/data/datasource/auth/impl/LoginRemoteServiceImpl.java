@@ -1,5 +1,6 @@
 package com.example.mealplanner.data.datasource.auth.impl;
 
+<<<<<<< Updated upstream
 import android.app.Activity;
 import android.util.Log;
 
@@ -60,4 +61,10 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
 
         return response;
     }
+=======
+import com.example.mealplanner.data.datasource.auth.LoginRemoteService;
+
+public class LoginRemoteServiceImpl implements LoginRemoteService {
+
+>>>>>>> Stashed changes
 }

@@ -32,7 +32,11 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
     private FirebaseAuth mAuth;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
+<<<<<<< Updated upstream
     private final String TAG = "Exception";
+=======
+
+>>>>>>> Stashed changes
 
     public RegistrationRemoteServiceImpl(Test welcomeFragment){
         this.welcomeFragment = welcomeFragment;
@@ -41,6 +45,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
 
 
 
+<<<<<<< Updated upstream
 
     /**
     * This method checks if the user has signed up before with their Google account
@@ -65,6 +70,8 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
 
 
 
+=======
+>>>>>>> Stashed changes
     //TODO change the DataLayerResponse from a raw type to a parameterized type
     @Override
     public MutableLiveData<DataLayerResponse<User>> signUpWithGoogle(Intent data) throws ApiException {
@@ -147,6 +154,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
                     }
 
                     else{
+                        //TODO handle the fac
                         dataLayerResponse.setMessage("You've signed up before");
                     }
 

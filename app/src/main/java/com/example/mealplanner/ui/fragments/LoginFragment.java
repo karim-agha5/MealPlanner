@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment implements Test {
                                 "Welcome back",
                                 Toast.LENGTH_SHORT).show();
                         homeScreenRedirection();
-                        //TODO propogate it to database to receive user's data if there's any
+                        //TODO propagate it to database to receive user's data if there's any
                     }
                     else{
                         startAlertDialog("Unable to login"

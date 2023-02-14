@@ -130,9 +130,9 @@ public class SignUpFragment extends Fragment implements Test {
             Toast.makeText(getContext(), "Enter your password", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(passwordConfirm)) {
             Toast.makeText(getContext(), "Password not identical", Toast.LENGTH_SHORT).show();
-
         }
     }
+
     private void handlingSignUpButton(){
 
         signUp.setOnClickListener(new View.OnClickListener() {
