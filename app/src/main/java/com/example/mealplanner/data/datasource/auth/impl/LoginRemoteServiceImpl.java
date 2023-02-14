@@ -1,7 +1,5 @@
 package com.example.mealplanner.data.datasource.auth.impl;
 
-<<<<<<< Updated upstream
-import android.app.Activity;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,7 +22,7 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
     private Test test;
     private final String TAG = "Exception";
 
-    public LoginRemoteServiceImpl(Test test){
+    public LoginRemoteServiceImpl(Test test) {
         this.test = test;
         mAuth = FirebaseAuth.getInstance();
     }
@@ -34,12 +32,12 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
         DataLayerResponse<User> dataLayerResponse = new DataLayerResponse<>();
         MutableLiveData<DataLayerResponse<User>> response = new MutableLiveData<>();
 
-        mAuth.signInWithEmailAndPassword(email,password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.i(TAG, "task is successful! ");
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             User user = new User();
@@ -49,8 +47,7 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
                             dataLayerResponse.setWrappedResponse(user);
                             response.setValue(dataLayerResponse);
                             Log.i(TAG, "status in task is successful-> " + dataLayerResponse.getStatus());
-                        }
-                        else{
+                        } else {
                             Log.i(TAG, "task is NOT successful! ");
                             dataLayerResponse.setStatus(Status.FAILURE);
                             response.setValue(dataLayerResponse);
@@ -61,10 +58,5 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
 
         return response;
     }
-=======
-import com.example.mealplanner.data.datasource.auth.LoginRemoteService;
-
-public class LoginRemoteServiceImpl implements LoginRemoteService {
-
->>>>>>> Stashed changes
 }
+
