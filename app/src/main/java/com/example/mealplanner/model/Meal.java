@@ -8,6 +8,8 @@ import androidx.room.TypeConverters;
 
 import com.example.mealplanner.data.localdb.ArrayConverter;
 
+import java.util.Date;
+
 @Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})
 @TypeConverters(ArrayConverter.class)
 public class Meal {
@@ -46,6 +48,11 @@ public class Meal {
 
     @ColumnInfo(name = "measures")
     private String[] measures;
+
+    @ColumnInfo(name = "is_favorite")
+    private boolean isFavorite;
+    @ColumnInfo(name = "date")
+    private Date date;
 
     public Meal(){}
 
@@ -155,5 +162,21 @@ public class Meal {
 
     public void setMeasures(final String[] measures) {
         this.measures = measures;
+    }
+
+    public boolean isFavorite() {
+        return this.isFavorite;
+    }
+
+    public void setFavorite(final boolean favorite) {
+        this.isFavorite = favorite;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public void setDate(final Date date) {
+        this.date = date;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.mealplanner.ui.fragments;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -18,29 +19,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
+import com.example.mealplanner.helper.AlertDialogHelper;
+import com.example.mealplanner.helper.ProgressDialogHelper;
+import com.example.mealplanner.helper.Status;
+import com.example.mealplanner.model.User;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
 
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Arrays;
 
 
 public class WelcomeFragment extends Fragment implements Test {
@@ -65,6 +64,8 @@ public class WelcomeFragment extends Fragment implements Test {
         ).requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
+        registrationRemoteService = new RegistrationRemoteServiceImpl(this);
     }
 
     @Override
@@ -134,11 +135,60 @@ public class WelcomeFragment extends Fragment implements Test {
         if(requestCode == GOOGLE_REQUEST_CODE){
 
             try {
-                registrationRemoteService = new RegistrationRemoteServiceImpl(getActivity(),data,this);
-                MutableLiveData<Boolean> isSignedUp = registrationRemoteService.isSignedUpWithGoogle();
-                registrationRemoteService.signUpWithGoogle();
+
+                ProgressDialogHelper progressDialogHelper =
+                        new ProgressDialogHelper(
+                                getActivity(),
+                                "Signing you in",
+                                "Hold on for a moment"
+                        );
+
+                progressDialogHelper.startProgressDialog();
+                // Sign-in with Google and return the User model and the Status sometime in the future
+                MutableLiveData<DataLayerResponse<User>> response =
+                        registrationRemoteService.signUpWithGoogle(data);
+
+
+                /*
+                   TODO propogate the response somewhere else - possibly to fetch data from the db
+                    if there's a user */
+                response.observe(this,userDataLayerResponse -> {
+                    Log.i(TAG, "onActivityResult: user status = " + response.getValue().getStatus());
+
+                    progressDialogHelper.stopProgressDialog();
+
+                    DataLayerResponse<User> dataLayerResponse = response.getValue();
+
+                    /*
+                    * If the login process succeeded.
+                    * Re-direct the user to the Home screen
+                    * */
+                    if(dataLayerResponse.getStatus() == Status.SUCCESS){
+                        //TODO propogate it to another repo to get the user's data if there's any
+                        User user = dataLayerResponse.getWrappedResponse();
+                        homeScreenRedirection();
+                    }
+
+                    else{
+                        AlertDialogHelper alertDialogHelper =
+                                new AlertDialogHelper(getActivity(),
+                                        "Error",
+                                        dataLayerResponse.getMessage() != null ?
+                                                dataLayerResponse.getMessage() : "Unknown Error"
+                                );
+                        alertDialogHelper.startAlertDialog();
+                    }
+
+                });
+
             } catch (ApiException e) {
+                //TODO handle not being able to sign to google exception
                 Log.i(TAG, "onActivityResult: ApiException");
+                AlertDialogHelper alertDialogHelper = new AlertDialogHelper(
+                        getActivity(),"Error",
+                        "Unable to connect to Google Services"
+                );
+                alertDialogHelper.startAlertDialog();
                 e.printStackTrace();
             }
         }
@@ -159,9 +209,14 @@ public class WelcomeFragment extends Fragment implements Test {
 
     @Override
     public void notifyFragment() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intent);
-        getActivity().finish();
+        homeScreenRedirection();
+    }
+
+    private void homeScreenRedirection(){
+        Activity activity = getActivity();
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
 
