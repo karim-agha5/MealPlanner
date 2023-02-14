@@ -3,27 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_fragment"
-    app:startDestination="@id/NotificationsFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/NotificationsFragment"
-        android:name="com.example.mealplanner.ui.fragments.NotificationsFragment"
-        android:label="NotificationsFragment" />
-    <fragment
-        android:id="@+id/PlannedMealsFragment"
+        android:id="@+id/planned_meals_fragment"
         android:name="com.example.mealplanner.ui.fragments.PlannedMealsFragment"
         android:label="PlannedMealsFragment" />
     <fragment
-        android:id="@+id/SearchFragment"
-        android:name="com.example.mealplanner.ui.fragments.SearchFragment"
-        android:label="SearchFragment" />
-    <fragment
-        android:id="@+id/ProfileFragment"
+        android:id="@+id/profile_fragment"
         android:name="com.example.mealplanner.ui.fragments.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_ProfileFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_ProfileFragment_to_PlannedMealsFragment"
+            app:destination="@id/planned_meals_fragment" />
+    </fragment>
     <fragment
-        android:id="@+id/HomeFragment"
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.mealplanner.ui.fragments.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/notifications_fragment"
+        android:name="com.example.mealplanner.ui.fragments.NotificationsFragment"
+        android:label="NotificationsFragment" />
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.example.mealplanner.ui.fragments.SearchFragment"
+        android:label="fragment_search" />
+    <fragment
+        android:id="@+id/home_fragment"
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

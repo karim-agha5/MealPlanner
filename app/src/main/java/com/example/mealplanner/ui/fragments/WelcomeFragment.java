@@ -3,6 +3,7 @@ package com.example.mealplanner.ui.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -49,6 +50,7 @@ public class WelcomeFragment extends Fragment implements Test {
     private Button btnSignUp;
 
     private TextView skip;
+
     private Button btnSignUpWithGoogle;
     private GoogleSignInClient googleSignInClient;
     private GoogleSignInOptions options;
@@ -84,10 +86,6 @@ public class WelcomeFragment extends Fragment implements Test {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        btnSignUp = view.findViewById(R.id.btn_sign_up);
-        tvLogin = view.findViewById(R.id.tv_login);
-        skip = view.findViewById(R.id.skipTxt);
         initUI(view);
 
         btnSignUpWithGoogle.setOnClickListener(view1 -> {
@@ -142,12 +140,14 @@ public class WelcomeFragment extends Fragment implements Test {
 
 
 
+
     }
 
     private void initUI(View view){
         btnSignUp = view.findViewById(R.id.btn_sign_up);
         btnSignUpWithGoogle = view.findViewById(R.id.btn_signWithGoogle);
         tvLogin = view.findViewById(R.id.tv_login);
+        skip = view.findViewById(R.id.skipTxt);
     }
 
     @Override

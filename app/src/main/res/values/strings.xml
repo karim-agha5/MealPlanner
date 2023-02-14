@@ -3,7 +3,7 @@
     <string name="tv_login">Login</string>
     <string name="tv_login_welcome_message">It\'s great to have you back!</string>
 
-    <string name="et_username">Username</string>
+    <string name="et_email">Email</string>
     <string name="et_password">Password</string>
     <string name="btn_login">Login</string>
     <string name="ic_home">Home</string>
@@ -23,7 +23,15 @@
     <string name="btn_next">Next</string>
     <string name="sign">Sign Up</string>
     <string name="account">I already have an account</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user">User Name</string>
+    <string name="logOut">Log out</string>
+    <string name="favorite">Favorite</string>
+    <string name="planned">Planned Meals</string>
+    <!--
+    <string name="default_web_client_id">779451629410-b6b60re70pkjv3452tem1gd51lqhga8n.apps.googleusercontent.com</string>-->
+
 
 </resources>

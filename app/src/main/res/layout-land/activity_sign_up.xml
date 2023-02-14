@@ -24,7 +24,7 @@
             android:text="@string/sign"
             android:textSize="22sp"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/nameTxt"
+            app:layout_constraintBottom_toTopOf="@+id/signUpName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             app:layout_constraintVertical_bias="0.584" />
 
         <Button
-            android:id="@+id/SignUpBtn"
+            android:id="@+id/sign_up"
             android:layout_width="370dp"
             android:layout_height="70dp"
             android:layout_marginTop="10dp"
@@ -56,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUpBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/sign_up" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +91,7 @@
             android:layout_marginBottom="10dp"
             android:hint="Confirm Your password"
             app:endIconMode="password_toggle"
-            app:layout_constraintBottom_toTopOf="@id/SignUpBtn"
+            app:layout_constraintBottom_toTopOf="@id/sign_up"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/passwordTxt"
@@ -108,7 +108,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameTxt"
+            android:id="@+id/signUpName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -138,7 +138,7 @@
             app:layout_constraintBottom_toTopOf="@id/passwordTxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameTxt"
+            app:layout_constraintTop_toBottomOf="@id/signUpName"
             app:startIconDrawable="@drawable/baseline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText

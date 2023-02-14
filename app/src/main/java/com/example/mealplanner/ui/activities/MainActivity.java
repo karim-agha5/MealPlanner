@@ -2,18 +2,22 @@ package com.example.mealplanner.ui.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
+
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.ui.fragments.HomeFragment;
 import com.example.mealplanner.ui.fragments.NotificationsFragment;
 import com.example.mealplanner.ui.fragments.PlannedMealsFragment;
 import com.example.mealplanner.ui.fragments.ProfileFragment;
+import com.example.mealplanner.ui.fragments.ProfileFragmentDirections;
 import com.example.mealplanner.ui.fragments.SearchFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationsFragment notificationsFragment;
     private ProfileFragment profileFragment;
     private PlannedMealsFragment plannedMealsFragment;
+    private  NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         initUI();
         setupBottomNavigationView();
 
+        navController= Navigation.findNavController(this,R.id.container);
+        NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
 
     }
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         badgeDrawable.setVisible(true);
         badgeDrawable.setNumber(1);
 
+
     }
 
     /**
@@ -61,34 +69,39 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.home_fragment:
                     // TODO go to home fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.home_fragment);
                     Toast.makeText(this, "HOME", Toast.LENGTH_SHORT).show();
                     return true;
 
                 case R.id.search_fragment:
                     //TODO go to search fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,searchFragment).commit();
+                   // getSupportFragmentManager().beginTransaction().replace(R.id.container,searchFragment).commit();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.search_fragment);
                     Toast.makeText(this, "SEARCH", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.planned_meals_fragment:
                     //TODO go to planned meals fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,plannedMealsFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,plannedMealsFragment).commit();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.planned_meals_fragment);
                     Toast.makeText(this, "PLANNED MEALS", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.notifications_fragment:
                     //TODO go to notifications fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,notificationsFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,notificationsFragment).commit();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.notifications_fragment);
                     Toast.makeText(this, "NOTIFICATIONS", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.profile_fragment:
                     //TODO go to profile fragment
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.profile_fragment);
                     Toast.makeText(this, "PROFILE", Toast.LENGTH_SHORT).show();
                     return true;
 
