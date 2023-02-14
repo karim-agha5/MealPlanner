@@ -100,13 +100,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
         android:src="@drawable/baseline_logout_24"
-        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/logOutTxt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/viewTwo" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/logOutTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
