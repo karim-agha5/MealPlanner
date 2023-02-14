@@ -29,7 +29,9 @@
     <string name="user">User Name</string>
     <string name="logOut">Log out</string>
     <string name="favorite">Favorite</string>
-
+    <string name="planned">Planned Meals</string>
+    <!--
+    <string name="default_web_client_id">779451629410-b6b60re70pkjv3452tem1gd51lqhga8n.apps.googleusercontent.com</string>-->
 
 
 </resources>

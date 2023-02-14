@@ -74,12 +74,12 @@
         android:backgroundTint="@color/white"
         android:text="@string/signup"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/accountTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/accountTxt"
         android:layout_width="251dp"
         android:layout_height="41dp"
         android:layout_marginBottom="64dp"
@@ -100,11 +100,11 @@
         android:text="@string/login"
         android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="@+id/accountTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/accountTxt"
+        app:layout_constraintTop_toTopOf="@+id/accountTxt"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

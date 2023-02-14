@@ -33,6 +33,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
     //private GoogleSignInAccount account;
     private Test welcomeFragment;
     private FirebaseAuth mAuth;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
   /*  public RegistrationRemoteServiceImpl(Activity activity,Intent data,Test welcomeFragment)
             throws ApiException {
@@ -156,6 +157,9 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
 
                     else if (((FirebaseAuthException) exception).getErrorCode().equals("ERROR_WEAK_PASSWORD")){
                         dataLayerResponse.setMessage("Password should be at least 6 characters");
+                    }
+                    else if(!email.matches(emailPattern)){
+                        dataLayerResponse.setMessage("bad format for your E-mail");
                     }
 
                     else{
