@@ -28,22 +28,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class RegistrationRemoteServiceImpl implements RegistrationRemoteService {
 
-  //  private Activity activity;
-//    private Intent data;
-    //private GoogleSignInAccount account;
     private Test welcomeFragment;
     private FirebaseAuth mAuth;
-
-  /*  public RegistrationRemoteServiceImpl(Activity activity,Intent data,Test welcomeFragment)
-            throws ApiException {
-        this.activity = activity;
-        this.data = data;
-        account = GoogleSignIn.getSignedInAccountFromIntent(data).getResult(ApiException.class);
-        this.welcomeFragment = welcomeFragment;
-        mAuth =FirebaseAuth.getInstance();
-    }*/
-
-
+    private final String TAG = "Exception";
 
 
 
@@ -108,7 +95,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
                             dataLayerResponse.setStatus(Status.SUCCESS);
                             response.setValue(dataLayerResponse);
 
-                            welcomeFragment.notifyFragment(); //TODO replace with Presenter
+                           // welcomeFragment.notifyFragment(); //TODO replace with Presenter
                         }
                         else{
                             dataLayerResponse.setStatus(Status.FAILURE);

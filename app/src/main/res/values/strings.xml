@@ -3,7 +3,7 @@
     <string name="tv_login">Login</string>
     <string name="tv_login_welcome_message">It\'s great to have you back!</string>
 
-    <string name="et_username">Username</string>
+    <string name="et_email">Email</string>
     <string name="et_password">Password</string>
     <string name="btn_login">Login</string>
     <string name="ic_home">Home</string>
