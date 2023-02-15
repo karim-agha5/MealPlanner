@@ -22,8 +22,7 @@ public class LoginRemoteServiceImpl implements LoginRemoteService {
     private Test test;
     private final String TAG = "Exception";
 
-    public LoginRemoteServiceImpl(Test test) {
-        this.test = test;
+    public LoginRemoteServiceImpl() {
         mAuth = FirebaseAuth.getInstance();
     }
 
