@@ -24,6 +24,9 @@ import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.DataLayerResponse;
+import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
+import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
@@ -51,6 +54,8 @@ public class WelcomeFragment extends Fragment{
     private GoogleSignInOptions options;
     private TextView tvLogin;
     private final String TAG = "Exception";
+    private RegistrationRemoteService registrationRemoteService;
+    private DatabaseAccess databaseAccess;
 
     private WelcomePresenter welcomePresenter;
 
@@ -64,6 +69,7 @@ public class WelcomeFragment extends Fragment{
         ).requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
 
         welcomePresenter = new WelcomePresenter();
     }
@@ -192,6 +198,14 @@ public class WelcomeFragment extends Fragment{
                     if(dataLayerResponse.getStatus() == Status.SUCCESS){
                         //TODO  propagateit to another repo to get the user's data if there's any
                         User user = dataLayerResponse.getWrappedResponse();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                databaseAccess = new DatabaseAccess(getActivity());
+                                databaseAccess.insertUser(user);
+
+                            }
+                        }).start();
                         homeScreenRedirection();
                     }
 
