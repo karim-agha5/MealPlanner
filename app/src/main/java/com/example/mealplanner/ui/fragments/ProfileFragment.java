@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        navController = Navigation.findNavController(getActivity(), R.id.container);
+       navController = Navigation.findNavController(getActivity(), R.id.container);
 
     }
 

@@ -36,5 +36,6 @@
     <string name="facebook_app_id">873964266994101</string>
     <string name="fb_login_protocol_scheme">fb873964266994101</string>
     <string name="facebook_client_token">56789</string>
+    <string name="favoriteMeal">Favorites Meals</string>
 
 </resources>
