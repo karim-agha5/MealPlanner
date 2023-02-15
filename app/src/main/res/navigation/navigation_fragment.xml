@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_ProfileFragment_to_PlannedMealsFragment"
             app:destination="@id/planned_meals_fragment" />
+        <action
+            android:id="@+id/action_profile_fragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -37,4 +40,9 @@
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.example.mealplanner.ui.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

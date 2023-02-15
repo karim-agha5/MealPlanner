@@ -20,6 +20,7 @@ public abstract class DBUser extends RoomDatabase {
 
     public static synchronized DBUser getInstance(Context context) {
         if (instance == null) {
+
             instance = Room.databaseBuilder(context.getApplicationContext(), DBUser.class, "FoodPlannerdb").build();
         }
         return instance;

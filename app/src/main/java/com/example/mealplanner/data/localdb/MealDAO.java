@@ -18,8 +18,8 @@ public interface MealDAO {
         List<Meal> getAllMeals();
 
         @Insert
-        void insertUser(Meal meal);
+        void insertMeal(Meal meal);
 
         @Delete
-        void deleteUser(Meal meal);
+        void deleteMeal(Meal meal);
     }
