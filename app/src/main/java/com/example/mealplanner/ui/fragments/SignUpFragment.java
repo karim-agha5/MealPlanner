@@ -68,7 +68,6 @@ public class SignUpFragment extends Fragment implements Test {
         signUp_email = view.findViewById(R.id.emailValue);
         confirmPassword = view.findViewById(R.id.passwordReValue);
         signUp = view.findViewById(R.id.sign_up);
-
         handlingSignUpButton();
 
     }
