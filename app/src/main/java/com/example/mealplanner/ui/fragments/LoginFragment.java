@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 
 import android.util.Log;
@@ -28,6 +27,7 @@ import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.User;
+import com.example.mealplanner.presenters.fragment.LoginPresenter;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment implements Test {
 
-    private LoginRemoteService loginRemoteService;
+    private LoginPresenter loginPresenter;
     private EditText etEmail;
     private EditText etPassword;
     private Button   btnLogin;
@@ -53,7 +53,7 @@ public class LoginFragment extends Fragment implements Test {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginRemoteService = new LoginRemoteServiceImpl(this);
+        loginPresenter = new LoginPresenter();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment implements Test {
                 startLoginLoading();
                 // Attempt to Login using Email and Password
                 MutableLiveData<DataLayerResponse<User>> response =
-                        loginRemoteService.login(
+                        loginPresenter.login(
                                 email,
                                 password
                         );
@@ -182,6 +182,7 @@ public class LoginFragment extends Fragment implements Test {
         if(user != null){
             //TODO re-direct to Home Screen if the user already exists.
             //TODO it already re-directs the uer to the Home Screen by itself
+            homeScreenRedirection();
         }
     }
 }
