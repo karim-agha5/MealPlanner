@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -25,13 +24,11 @@ import android.widget.Toast;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.DataLayerResponse;
-import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
-import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.User;
-import com.example.mealplanner.ui.Test;
+import com.example.mealplanner.presenters.fragment.WelcomePresenter;
 import com.example.mealplanner.ui.activities.MainActivity;
 
 
@@ -44,20 +41,18 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-public class WelcomeFragment extends Fragment implements Test {
+public class WelcomeFragment extends Fragment{
 
     private final int GOOGLE_REQUEST_CODE = 5;
     private Button btnSignUp;
-
     private TextView skip;
-
     private Button btnSignUpWithGoogle;
     private GoogleSignInClient googleSignInClient;
     private GoogleSignInOptions options;
     private TextView tvLogin;
     private final String TAG = "Exception";
-    private RegistrationRemoteService registrationRemoteService;
 
+    private WelcomePresenter welcomePresenter;
 
 
     @Override
@@ -70,7 +65,7 @@ public class WelcomeFragment extends Fragment implements Test {
                 .requestEmail()
                 .build();
 
-        registrationRemoteService = new RegistrationRemoteServiceImpl(this);
+        welcomePresenter = new WelcomePresenter();
     }
 
     @Override
@@ -163,26 +158,28 @@ public class WelcomeFragment extends Fragment implements Test {
 
         if(requestCode == GOOGLE_REQUEST_CODE){
 
-            try {
+            ProgressDialogHelper progressDialogHelper =
+                    new ProgressDialogHelper(
+                            getActivity(),
+                            "Signing you in",
+                            "Hold on for a moment"
+                    );
 
-                ProgressDialogHelper progressDialogHelper =
-                        new ProgressDialogHelper(
-                                getActivity(),
-                                "Signing you in",
-                                "Hold on for a moment"
-                        );
+            try {
 
                 progressDialogHelper.startProgressDialog();
                 // Sign-in with Google and return the User model and the Status sometime in the future
                 MutableLiveData<DataLayerResponse<User>> response =
-                        registrationRemoteService.signUpWithGoogle(data);
+                        welcomePresenter.signUpWithGoogle(data);
 
+                Log.i(TAG, "onActivityResult: requestCode = " + requestCode
+                + "\nresultCode = " + resultCode);
 
                 /*
                    TODO propogate the response somewhere else - possibly to fetch data from the db
                     if there's a user */
                 response.observe(this,userDataLayerResponse -> {
-                    Log.i(TAG, "onActivityResult: user status = " + response.getValue().getStatus());
+                //    Log.i(TAG, "onActivityResult: user status = " + response.getValue().getStatus());
 
                     progressDialogHelper.stopProgressDialog();
 
@@ -193,7 +190,7 @@ public class WelcomeFragment extends Fragment implements Test {
                     * Re-direct the user to the Home screen
                     * */
                     if(dataLayerResponse.getStatus() == Status.SUCCESS){
-                        //TODO propogate it to another repo to get the user's data if there's any
+                        //TODO  propagateit to another repo to get the user's data if there's any
                         User user = dataLayerResponse.getWrappedResponse();
                         homeScreenRedirection();
                     }
@@ -210,7 +207,14 @@ public class WelcomeFragment extends Fragment implements Test {
 
                 });
 
-            } catch (ApiException e) {
+            }
+            /*
+            * If the user cancels the dialog when choosing a Google account
+            * TODO you can immediately login without choosing a Google account after disconnecting and
+            *  reconnecting to the internet again
+            * */
+            catch (ApiException e) {
+                progressDialogHelper.stopProgressDialog();
                 //TODO handle not being able to sign to google exception
                 Log.i(TAG, "onActivityResult: ApiException");
                 AlertDialogHelper alertDialogHelper = new AlertDialogHelper(
@@ -229,16 +233,9 @@ public class WelcomeFragment extends Fragment implements Test {
         super.onStart();
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+            homeScreenRedirection();
         }
 
-    }
-
-    @Override
-    public void notifyFragment() {
-        homeScreenRedirection();
     }
 
     private void homeScreenRedirection(){
@@ -248,13 +245,4 @@ public class WelcomeFragment extends Fragment implements Test {
         activity.finish();
     }
 
-
 }
-
-
-
-
-
-
-
-

@@ -25,6 +25,7 @@ import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.User;
+import com.example.mealplanner.presenters.fragment.SignUpPresenter;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,12 +42,12 @@ public class SignUpFragment extends Fragment implements Test {
     private String email;
     private String password;
     private String passwordConfirm;
-    private RegistrationRemoteService registrationRemoteService;
+    private SignUpPresenter signUpPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registrationRemoteService = new RegistrationRemoteServiceImpl(this);
+        signUpPresenter = new SignUpPresenter();
     }
 
     @Override
@@ -153,7 +154,7 @@ public class SignUpFragment extends Fragment implements Test {
                     progressDialogHelper.startProgressDialog();
 
                     MutableLiveData<DataLayerResponse<User>> response =
-                            registrationRemoteService.signUpWithEmailAndPassword(email,password,getActivity());
+                            signUpPresenter.signUpWithEmailAndPassword(email,password,getActivity());
 
 
                     // Set an observer on the response and do some action
@@ -192,6 +193,7 @@ public class SignUpFragment extends Fragment implements Test {
                         else{
                             Toast.makeText(getActivity(), "Thanks for signing up!",
                                     Toast.LENGTH_SHORT).show();
+                            //TODO add the user to the db
                             homeScreenRedirection();
                         }
 

@@ -33,8 +33,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private final String TAG = "Exception";
-    public RegistrationRemoteServiceImpl(Test welcomeFragment){
-        this.welcomeFragment = welcomeFragment;
+    public RegistrationRemoteServiceImpl(){
         mAuth = FirebaseAuth.getInstance();
     }
 
