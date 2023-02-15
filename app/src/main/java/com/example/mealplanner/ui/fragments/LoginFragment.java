@@ -1,9 +1,9 @@
 package com.example.mealplanner.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,6 +22,8 @@ import com.example.mealplanner.R;
 import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.LoginRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.LoginRemoteServiceImpl;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
+import com.example.mealplanner.data.localdb.UserDAO;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
@@ -43,6 +45,9 @@ public class LoginFragment extends Fragment implements Test {
 
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String TAG = "Exception";
+
+    private DatabaseAccess databaseAccess;
+
 
 
     @Override
@@ -96,6 +101,14 @@ public class LoginFragment extends Fragment implements Test {
                     if(dataLayerResponse.getStatus() == Status.SUCCESS){
                         Log.i(TAG, "Your login should be successful");
                         User user = dataLayerResponse.getWrappedResponse();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                databaseAccess = new DatabaseAccess(getActivity());
+                                String userID= user.getId();
+
+                            }
+                        }).start();
                         Toast.makeText(getActivity(),
                                 "Welcome back",
                                 Toast.LENGTH_SHORT).show();

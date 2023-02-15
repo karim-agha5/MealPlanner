@@ -21,6 +21,7 @@ import com.example.mealplanner.R;
 import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
@@ -42,11 +43,13 @@ public class SignUpFragment extends Fragment implements Test {
     private String password;
     private String passwordConfirm;
     private RegistrationRemoteService registrationRemoteService;
+    private DatabaseAccess databaseAccess;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         registrationRemoteService = new RegistrationRemoteServiceImpl(this);
+
     }
 
     @Override
@@ -190,6 +193,15 @@ public class SignUpFragment extends Fragment implements Test {
                             Destroy this activity and re-direct the user to the Home Screen
                          */
                         else{
+                            User user = dataLayerResponse.getWrappedResponse();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    databaseAccess = new DatabaseAccess(getActivity());
+                                    databaseAccess.insertUser(user);
+
+                                }
+                            }).start();
                             Toast.makeText(getActivity(), "Thanks for signing up!",
                                     Toast.LENGTH_SHORT).show();
                             homeScreenRedirection();
