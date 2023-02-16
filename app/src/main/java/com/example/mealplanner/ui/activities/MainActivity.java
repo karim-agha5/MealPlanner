@@ -3,7 +3,6 @@ package com.example.mealplanner.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -11,10 +10,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.ui.fragments.HomeFragment;
-import com.example.mealplanner.ui.fragments.NotificationsFragment;
+import com.example.mealplanner.ui.fragments.CountriesFragment;
 import com.example.mealplanner.ui.fragments.PlannedMealsFragment;
 import com.example.mealplanner.ui.fragments.ProfileFragment;
-import com.example.mealplanner.ui.fragments.ProfileFragmentDirections;
 import com.example.mealplanner.ui.fragments.SearchFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
-    private NotificationsFragment notificationsFragment;
+    private CountriesFragment notificationsFragment;
     private ProfileFragment profileFragment;
     private PlannedMealsFragment plannedMealsFragment;
     private  NavController navController;
@@ -51,11 +49,9 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         searchFragment = new SearchFragment();
-        notificationsFragment = new NotificationsFragment();
+        notificationsFragment = new CountriesFragment();
         plannedMealsFragment = new PlannedMealsFragment();
-        BadgeDrawable badgeDrawable = bottomNavigationView.getOrCreateBadge(R.id.notifications_fragment);
-        badgeDrawable.setVisible(true);
-        badgeDrawable.setNumber(1);
+
 
 
     }
@@ -90,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
 
-                case R.id.notifications_fragment:
+                case R.id.countries_fragment:
                     //TODO go to notifications fragment
                     //getSupportFragmentManager().beginTransaction().replace(R.id.container,notificationsFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.notifications_fragment);
-                    Toast.makeText(this, "NOTIFICATIONS", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.countries_fragment);
+                    Toast.makeText(this, "COUNTRIES", Toast.LENGTH_SHORT).show();
                     return true;
 
 
