@@ -31,12 +31,13 @@
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="#27c175"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordReTxt"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints,DuplicateSpeakableTextCheck" />
 
 
 <!--
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="Password"
+        android:hint="@string/password"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@id/passwordReTxt"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:hint="Confirm Your password"
+        android:hint="@string/confirm_your_password"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@id/sign_up"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +99,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:inputType="textPassword"
-            android:textColorHint="#616161" />
+            android:textColorHint="#757575" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
-        android:hint="Username"
+        android:hint="@string/username"
         app:layout_constraintBottom_toTopOf="@id/emailTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:hint="E-mail"
+        android:hint="@string/e_mail"
         app:layout_constraintBottom_toTopOf="@id/passwordTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

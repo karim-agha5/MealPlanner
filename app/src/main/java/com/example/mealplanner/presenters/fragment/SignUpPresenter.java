@@ -9,9 +9,10 @@ import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.RegistrationRemoteServiceImpl;
 import com.example.mealplanner.model.User;
+import com.example.mealplanner.presenters.contract.SignUpPresenterContract;
 import com.google.android.gms.common.api.ApiException;
 
-public class SignUpPresenter {
+public class SignUpPresenter implements SignUpPresenterContract {
 
     private RegistrationRemoteService registrationRemoteService;
 

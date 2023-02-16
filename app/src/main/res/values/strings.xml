@@ -40,5 +40,10 @@
     <string name="egypt">Egyption</string>
     <string name="america">American</string>
     <string name="british">British</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="confirm_your_password">Confirm Your password</string>
+    <string name="username">Username</string>
+    <string name="e_mail">E-mail</string>
 
 </resources>
