@@ -20,12 +20,16 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_ProfileFragment_to_PlannedMealsFragment"
+
             app:destination="@id/planned_meals_fragment"
             app:popUpTo="@id/home_fragment"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_profile_fragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+
+            app:destination="@id/planned_meals_fragment" />
+
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"

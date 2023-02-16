@@ -42,8 +42,6 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       navController = Navigation.findNavController(getActivity(), R.id.container);
-
     }
 
     @Override
@@ -82,16 +80,14 @@ public class ProfileFragment extends Fragment {
                 (view1) ->{
                     Activity activity = getActivity();
                     FirebaseAuth.getInstance().signOut();
-                    if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                        while (navController.popBackStack() == true) {
-                        }
-                        Navigation.findNavController(activity, R.id.container).navigate(R.id.loginFragment2);
-                    } else {
-                        Toast.makeText(activity, R.string.logOut, Toast.LENGTH_SHORT).show();
-                    }
-
+                    welcomeScreenRedirection();
                 }
         );
 
+    }
+
+    private void welcomeScreenRedirection(){
+        startActivity(new Intent(getActivity(),WelcomeActivity.class));
+        getActivity().finish();
     }
 }

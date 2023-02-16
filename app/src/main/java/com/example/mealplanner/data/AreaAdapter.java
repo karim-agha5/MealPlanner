@@ -31,7 +31,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull AreaAdapter.MyViewHolder holder, int position) {
         Area area = country.get(position);
         holder.image.setImageResource(area.getImage());
-        holder.name.setText(area.getCountryName());
+        holder.name.setText(area.getName());
 
     }
 

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.SignUpFragment">
+    tools:context=".ui.fragments.SignUpFragment"
+    android:background="#fafafa">
 
 
 
@@ -32,14 +33,13 @@
         android:backgroundTint="#27c175"
         android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordReTxt"
         tools:ignore="MissingConstraints" />
 
 
-
+<!--
     <TextView
         android:id="@+id/account"
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up" />
-
+-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTxt"

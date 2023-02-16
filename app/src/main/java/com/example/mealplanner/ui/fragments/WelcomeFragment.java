@@ -124,8 +124,7 @@ public class WelcomeFragment extends Fragment{
 
                         builder.setPositiveButton("YES,I'M SURE", (DialogInterface.OnClickListener)(dialog, which) -> {
                                 Toast.makeText(requireContext(), "Login as guest was successful.", Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(view).navigate(WelcomeFragmentDirections
-                                        .actionWelcomeFragmentToHomeFragment());
+                                homeScreenRedirection();
 
                         });
                         builder.setNegativeButton("NO,Go BACK", (DialogInterface.OnClickListener) (dialog, which) -> {
