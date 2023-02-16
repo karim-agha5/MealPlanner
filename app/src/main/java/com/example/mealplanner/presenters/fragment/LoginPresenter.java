@@ -6,8 +6,9 @@ import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.LoginRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.LoginRemoteServiceImpl;
 import com.example.mealplanner.model.User;
+import com.example.mealplanner.presenters.contract.LoginPresenterContract;
 
-public class LoginPresenter {
+public class LoginPresenter implements LoginPresenterContract {
 
     private LoginRemoteService loginRemoteService;
 
