@@ -56,8 +56,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     annotationProcessor "androidx.room:room-compiler:2.5.0"
-    implementation "androidx.room:room-rxjava3:2.5.0"
-    implementation "androidx.room:room-rxjava2:2.5.0"
+    //implementation "androidx.room:room-rxjava3:2.5.0"
+    //implementation "androidx.room:room-rxjava2:2.5.0"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -78,15 +78,23 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.google.android.material:material:1.3.0'
-    implementation "io.reactivex.rxjava3:rxjava:3.1.6"
+   // implementation "io.reactivex.rxjava3:rxjava:3.1.6"
 
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //retrofit and gson
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
+
+    // t
+    implementation 'androidx.room:room-rxjava2:2.5.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
 
 }

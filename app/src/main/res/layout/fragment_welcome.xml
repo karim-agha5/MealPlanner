@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+
     tools:context=".ui.fragments.WelcomeFragment">
 
 
@@ -27,7 +27,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/foodPlanner"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/black"
@@ -40,39 +40,37 @@
         app:layout_constraintVertical_bias="0.911" />
 
 
+
     <Button
         android:id="@+id/btn_signWithFacebook"
-        android:layout_width="165dp"
+        android:layout_width="0dp"
         android:layout_height="67dp"
-        android:layout_marginStart="5dp"
         android:backgroundTint="#063970"
+        android:paddingHorizontal="50dp"
         android:contentDescription="Sign-up with a Facebook account"
         android:drawableLeft="@drawable/facebook"
-        android:paddingStart="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_signWithGoogle"
+        app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"
         app:layout_constraintEnd_toEndOf="@+id/btn_sign_up"
-        app:layout_constraintStart_toEndOf="@+id/btn_signWithGoogle"
-        app:layout_constraintTop_toTopOf="@+id/btn_signWithGoogle"
-        app:layout_constraintVertical_bias="0.583" />
+         />
 
     <Button
         android:id="@+id/btn_signWithGoogle"
-        android:layout_width="147dp"
+        android:layout_width="0dp"
         android:layout_height="71dp"
-        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/white"
+        android:paddingHorizontal="50dp"
         android:contentDescription="Sign-up with a Google account"
         android:drawableLeft="@drawable/google"
-        android:drawablePadding="20dp"
-        android:paddingStart="60dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/btn_sign_up"
-        app:layout_constraintStart_toStartOf="@+id/btn_sign_up" />
+        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+        app:layout_constraintStart_toStartOf="@id/btn_sign_up" />
+
 
     <Button
         android:id="@+id/btn_sign_up"
-        android:layout_width="335dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="36dp"
         android:backgroundTint="@color/white"
         android:text="@string/signup"
@@ -86,28 +84,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="64dp"
-        android:fontFamily="sans-serif-black"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/haveAccount"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintEnd_toStartOf="@id/tv_login"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_login"
-        android:layout_width="82dp"
-        android:layout_height="33dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/accountTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toEndOf="@+id/accountTxt"
-        app:layout_constraintTop_toTopOf="@+id/accountTxt"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/accountTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
