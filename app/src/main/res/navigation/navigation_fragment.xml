@@ -28,8 +28,8 @@
         android:name="com.example.mealplanner.ui.fragments.FavoriteFragment"
         android:label="FavoriteFragment" />
     <fragment
-        android:id="@+id/notifications_fragment"
-        android:name="com.example.mealplanner.ui.fragments.NotificationsFragment"
+        android:id="@+id/countries_fragment"
+        android:name="com.example.mealplanner.ui.fragments.CountriesFragment"
         android:label="NotificationsFragment" />
     <fragment
         android:id="@+id/search_fragment"
@@ -39,7 +39,7 @@
         android:id="@+id/home_fragment"
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/row_item" />
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.mealplanner.ui.fragments.LoginFragment"
