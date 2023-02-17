@@ -38,7 +38,14 @@
     <fragment
         android:id="@+id/countries_fragment"
         android:name="com.example.mealplanner.ui.fragments.CountriesFragment"
-        android:label="NotificationsFragment" />
+        android:label="NotificationsFragment" >
+        <action
+            android:id="@+id/action_countries_fragment_to_mealsForSpecificAreaFragment"
+            app:destination="@id/mealsForSpecificAreaFragment" />
+        <argument
+            android:name="area"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/search_fragment"
         android:name="com.example.mealplanner.ui.fragments.SearchFragment"
@@ -46,11 +53,15 @@
     <fragment
         android:id="@+id/home_fragment"
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
-        android:label="fragment_search"
         tools:layout="@layout/row_item" />
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.mealplanner.ui.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/mealsForSpecificAreaFragment"
+        android:name="com.example.mealplanner.ui.fragments.MealsForSpecificAreaFragment"
+        android:label="fragment_meals_for_specific_area"
+        tools:layout="@layout/fragment_meals_for_specific_area" />
 </navigation>

@@ -8,6 +8,7 @@ import androidx.room.TypeConverters;
 
 import com.example.mealplanner.data.localdb.ArrayConverter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})
