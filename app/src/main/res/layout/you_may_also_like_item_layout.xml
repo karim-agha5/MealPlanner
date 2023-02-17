@@ -49,6 +49,7 @@
         tools:text="Arrabiata"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:maxLines="3"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintTop_toBottomOf="@id/cv_you_may_also_like_meal_contaienr"
         app:layout_constraintStart_toStartOf="@id/cv_you_may_also_like_meal_contaienr"

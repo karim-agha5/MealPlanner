@@ -33,6 +33,7 @@ import com.example.mealplanner.ui.adapters.YouMayAlsoLikeAdapter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -149,22 +150,8 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<Meal> getRandomMealsList(ArrayList<Meal> fullMealsList){
         ArrayList<Meal> randomMealsList = new ArrayList<>();
-        /*List<Integer> uniqueRandomNumbers =
-                random.ints(11,1,11)
-                .boxed()
-                .collect(Collectors.toList());*/
 
-        ArrayList<Integer> uniqueRandomNumbers = new ArrayList<>();
-        generateRandomNumbers(uniqueRandomNumbers);
-
-       /* new Thread(
-                () -> {
-                    while(!areNumbersUnique(uniqueRandomNumbers)){
-                        generateRandomNumbers(uniqueRandomNumbers);
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-        ).start();*/
+        ArrayList<Integer> uniqueRandomNumbers = generateRandomNumbers(40);
 
         for(int i = 0; i < uniqueRandomNumbers.size(); i++){
             randomMealsList.add(fullMealsList.get(uniqueRandomNumbers.get(i)));
@@ -174,24 +161,19 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void generateRandomNumbers(ArrayList<Integer> uniqueNumbersList){
+    private ArrayList<Integer> generateRandomNumbers(int bound){
+        HashSet<Integer> uniqueNumbersSet = new HashSet<>();
         Random random;
-        for(int i = 0; i < 11; i++){
+        int i = 0;
+        while(i <= 10){
             random = new Random();
-            uniqueNumbersList.add(random.nextInt(40));
-        }
-    }
-
-    private boolean areNumbersUnique(List<Integer> randomNumbers){
-        boolean isUnique = true;
-        for(int i = 0; i < randomNumbers.size() - 1 && isUnique; i++){
-            for(int j = i + 1; j < randomNumbers.size() && isUnique; j++){
-                if(randomNumbers.get(i) == randomNumbers.get(j)){
-                    isUnique = false;
-                }
+            Integer potentiallyUniqueNumber = random.nextInt(bound);
+            if(!uniqueNumbersSet.contains(potentiallyUniqueNumber)){
+                i++;
+                uniqueNumbersSet.add(potentiallyUniqueNumber);
             }
         }
 
-        return isUnique;
+        return new ArrayList<>(uniqueNumbersSet);
     }
 }
