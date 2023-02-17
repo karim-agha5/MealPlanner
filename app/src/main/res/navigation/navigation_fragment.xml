@@ -23,13 +23,11 @@
 
             app:destination="@id/planned_meals_fragment"
             app:popUpTo="@id/home_fragment"
-            app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_profile_fragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            app:popUpToInclusive="false" /><![CDATA[
 
             app:destination="@id/planned_meals_fragment" />
 
+    ]]>
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -48,9 +46,4 @@
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
         android:label="fragment_search"
         tools:layout="@layout/row_item" />
-    <fragment
-        android:id="@+id/loginFragment2"
-        android:name="com.example.mealplanner.ui.fragments.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
 </navigation>

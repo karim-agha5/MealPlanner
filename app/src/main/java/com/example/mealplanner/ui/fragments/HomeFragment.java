@@ -1,5 +1,6 @@
 package com.example.mealplanner.ui.fragments;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -29,7 +30,9 @@ import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.Meal;
 import com.example.mealplanner.presenters.contract.HomePresenterContract;
 import com.example.mealplanner.presenters.fragment.HomePresenter;
+import com.example.mealplanner.ui.activities.MainActivity;
 import com.example.mealplanner.ui.adapters.YouMayAlsoLikeAdapter;
+import com.example.mealplanner.ui.fragments.state.HomeFragmentState;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -42,24 +45,32 @@ import java.util.stream.Collectors;
 public class HomeFragment extends Fragment {
 
     private HomePresenterContract homePresenterContract;
+    private HomeFragmentState homeFragmentState;
     private ProgressDialogHelper progressDialogHelper;
     private YouMayAlsoLikeAdapter adapter;
     private RecyclerView recyclerView;
     private ImageView ivMealImage;
     private TextView tvMealName;
     private TextView tvMealArea;
+    private Drawable[] images;
     private ContentLoadingProgressBar contentLoadingProgressBar;
     private final String TAG = "Exception";
+    private String state;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homePresenterContract = new HomePresenter();
+        homePresenterContract = new HomePresenter((MainActivity) getActivity());
+
+        Log.i(TAG, "onCreate: ");
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -67,42 +78,132 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = view.findViewById(R.id.rv_you_may_also_like);
         ivMealImage = view.findViewById(R.id.iv_meal_image);
         tvMealName = view.findViewById(R.id.tv_meal_name);
         tvMealArea = view.findViewById(R.id.tv_meal_area);
         contentLoadingProgressBar = view.findViewById(R.id.daily_inspiration_image_loading_progress_bar);
+
+        Log.i(TAG, "onViewCreated: recyclerview -> "  + recyclerView.hashCode());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        startProgressDialog();
-        MutableLiveData<DataLayerResponse<ArrayList<Meal>>> response =
-                homePresenterContract.getRandomMeals();
+        Log.i(TAG, "onActivityCreated: ");
 
-        response.observe(this,dataLayerResponse -> {
+        homeFragmentState = homePresenterContract.getHomeFragmentState();
 
-            progressDialogHelper.stopProgressDialog();
-            if(dataLayerResponse.getStatus() == Status.SUCCESS){
-                ArrayList<Meal> randomMeals = getRandomMealsList(dataLayerResponse.getWrappedResponse());
-                handleDailyInspirationMeal(randomMeals.get(0));
-                randomMeals.remove(0);
-                adapter = new YouMayAlsoLikeAdapter(getActivity(),randomMeals);
-                LinearLayoutManager manager =
-                        new LinearLayoutManager(
-                                getActivity(),
-                                LinearLayoutManager.HORIZONTAL,
-                                false
-                                );
-                recyclerView.setLayoutManager(manager);
-                recyclerView.setAdapter(adapter);
-            }
+        if(!homeFragmentState.hasSavedState()) {
 
-            else{
-                startAlertDialog(dataLayerResponse.getMessage());
-            }
-        });
+
+            startProgressDialog();
+            MutableLiveData<DataLayerResponse<ArrayList<Meal>>> response =
+                    homePresenterContract.getRandomMeals();
+
+            response.observe(this,dataLayerResponse -> {
+
+                progressDialogHelper.stopProgressDialog();
+                if(dataLayerResponse.getStatus() == Status.SUCCESS){
+                    ArrayList<Meal> randomMeals;
+
+                    homeFragmentState = homePresenterContract.getHomeFragmentState();
+                    /*
+                     * Elements could be null.
+                     * If so, fill it with bitmaps through glide.
+                     * If not, retrieve the saved bitmaps.
+                     * */
+                    images = homeFragmentState.getSavedImages();
+                    Log.i(TAG, "onActivityCreated: images -> " + images);
+                    if(!homeFragmentState.hasSavedState()){
+                        Log.i(TAG, "onActivityCreated: inside if images -> " + images);
+                        randomMeals = getRandomMealsList(dataLayerResponse.getWrappedResponse());
+                        homeFragmentState.setRandomMealsList(randomMeals);
+                        homeFragmentState.setHasSavedState(true);
+                        Log.i(TAG, "inside if state -> " + homeFragmentState.hashCode());
+                        Log.i(TAG, "inside if randomMeals -> " + randomMeals.hashCode());
+
+                    }
+
+
+                    else{
+                        Log.i(TAG, "onActivityCreated: inside else images -> " + images);
+                        randomMeals = homeFragmentState.getRandomMealsList();
+                        images = homeFragmentState.getSavedImages();
+                        Log.i(TAG, "inside else state -> " + homeFragmentState.hashCode());
+                        Log.i(TAG, "inside else randomMeals -> " + randomMeals.hashCode());
+                    }
+
+
+
+                    handleDailyInspirationMeal(randomMeals.get(0));
+                    randomMeals.remove(0);
+
+                    //  adapter = new YouMayAlsoLikeAdapter(getActivity(), randomMeals);
+                    Log.i(TAG, "onActivityCreated: right before constructor images -> " + images);
+                    adapter = new YouMayAlsoLikeAdapter(getActivity(),randomMeals,images);
+
+                    LinearLayoutManager manager =
+                            new LinearLayoutManager(
+                                    getActivity(),
+                                    LinearLayoutManager.HORIZONTAL,
+                                    false
+                            );
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                }
+
+                else{
+                    startAlertDialog(dataLayerResponse.getMessage());
+                }
+            });
+
+        }
+
+
+        else{
+
+            ArrayList<Meal> randomMeals;
+
+            homeFragmentState = homePresenterContract.getHomeFragmentState();
+            /*
+             * Elements could be null.
+             * If so, fill it with bitmaps through glide.
+             * If not, retrieve the saved bitmaps.
+             * */
+            images = homeFragmentState.getSavedImages();
+
+
+
+
+                Log.i(TAG, "onActivityCreated: inside else images -> " + images);
+                randomMeals = homeFragmentState.getRandomMealsList();
+                images = homeFragmentState.getSavedImages();
+                Log.i(TAG, "inside else state -> " + homeFragmentState.hashCode());
+                Log.i(TAG, "inside else randomMeals -> " + randomMeals.hashCode());
+
+
+
+
+            handleDailyInspirationMeal(randomMeals.get(0));
+            randomMeals.remove(0);
+
+            Log.i(TAG, "onActivityCreated: right before constructor images -> " + images);
+            adapter = new YouMayAlsoLikeAdapter(getActivity(),randomMeals,images);
+
+            LinearLayoutManager manager =
+                    new LinearLayoutManager(
+                            getActivity(),
+                            LinearLayoutManager.HORIZONTAL,
+                            false
+                    );
+            recyclerView.setLayoutManager(manager);
+            recyclerView.setAdapter(adapter);
+
+
+        }
+
     }
 
     private void startProgressDialog(){
@@ -131,21 +232,39 @@ public class HomeFragment extends Fragment {
         tvMealArea.setText(String.valueOf(dailyInspirationMeal.getArea()));
 
 
-        Glide.with(getActivity())
-                .load(dailyInspirationMeal.getImageUrl())
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        contentLoadingProgressBar.setVisibility(View.GONE);
-                        ivMealImage.setVisibility(View.VISIBLE);
-                        ivMealImage.setImageDrawable(resource);
-                    }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
+        if(images[0] == null){
+            Log.i(TAG, "inside if images[0]" + images[0]);
 
-                    }
-                });
+            Glide.with(getActivity())
+                    .load(dailyInspirationMeal.getImageUrl())
+                    .into(new CustomTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            contentLoadingProgressBar.setVisibility(View.GONE);
+                            ivMealImage.setVisibility(View.VISIBLE);
+                            ivMealImage.setImageDrawable(resource);
+                            images[0] = resource;
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+
+
+        }
+
+
+        else{
+            Log.i(TAG, "inside else images[0]" + images[0]);
+            contentLoadingProgressBar.setVisibility(View.GONE);
+            ivMealImage.setVisibility(View.VISIBLE);
+            ivMealImage.setImageDrawable(images[0]);
+        }
+
+
     }
 
     private ArrayList<Meal> getRandomMealsList(ArrayList<Meal> fullMealsList){
@@ -176,4 +295,5 @@ public class HomeFragment extends Fragment {
 
         return new ArrayList<>(uniqueNumbersSet);
     }
+
 }
