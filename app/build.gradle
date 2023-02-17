@@ -90,6 +90,9 @@ dependencies {
 //    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+
     // t
     implementation 'androidx.room:room-rxjava2:2.5.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'

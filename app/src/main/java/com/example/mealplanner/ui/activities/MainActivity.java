@@ -2,7 +2,6 @@ package com.example.mealplanner.ui.activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -11,19 +10,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.DataLayerResponse;
-import com.example.mealplanner.data.api.AreaManager;
-import com.example.mealplanner.data.repositories.AreasRepository;
-import com.example.mealplanner.model.Area;
+import com.example.mealplanner.data.api.responses.RandomMealsResponse;
+import com.example.mealplanner.data.datasource.meals.impl.RandomMealsRemoteServiceImpl;
 import com.example.mealplanner.ui.fragments.HomeFragment;
 import com.example.mealplanner.ui.fragments.CountriesFragment;
 import com.example.mealplanner.ui.fragments.PlannedMealsFragment;
 import com.example.mealplanner.ui.fragments.ProfileFragment;
 import com.example.mealplanner.ui.fragments.SearchFragment;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
+import io.reactivex.Observable;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ProfileFragment profileFragment;
     private PlannedMealsFragment plannedMealsFragment;
     private  NavController navController;
+    private final String TAG = "Exception";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,4 +1,4 @@
-package com.example.mealplanner.data.api;
+package com.example.mealplanner.data.api.responses;
 
 import com.example.mealplanner.model.Area;
 import com.google.gson.annotations.SerializedName;

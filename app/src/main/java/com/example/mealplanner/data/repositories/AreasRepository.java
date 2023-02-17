@@ -3,8 +3,9 @@ package com.example.mealplanner.data.repositories;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mealplanner.data.DataLayerResponse;
-import com.example.mealplanner.data.api.AreaManager;
-import com.example.mealplanner.data.api.AreaResponse;
+import com.example.mealplanner.data.datasource.meals.AreasRemoteService;
+import com.example.mealplanner.data.datasource.meals.impl.AreasRemoteServiceImpl;
+import com.example.mealplanner.data.api.responses.AreaResponse;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.Area;
 
@@ -14,10 +15,10 @@ import io.reactivex.Observable;
 
 public class AreasRepository {
 
-    private AreaManager areaManager;
+    private AreasRemoteService areasRemoteService;
 
     public AreasRepository(){
-        areaManager = new AreaManager();
+        areasRemoteService = new AreasRemoteServiceImpl();
     }
 
     /**
@@ -30,7 +31,7 @@ public class AreasRepository {
 
         DataLayerResponse<ArrayList<Area>> dataLayerResponse = new DataLayerResponse();
 
-        Observable<AreaResponse> areaResponse = areaManager.getAllAreas();
+        Observable<AreaResponse> areaResponse = areasRemoteService.getAllAreas();
 
         areaResponse.subscribe(
                 e -> {
@@ -40,6 +41,7 @@ public class AreasRepository {
                 },
                 error -> {
                     dataLayerResponse.setStatus(Status.FAILURE);
+                    dataLayerResponse.setMessage("Unable to retrieve the areas");
                     error.printStackTrace();
                 }
         );
