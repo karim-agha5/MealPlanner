@@ -9,13 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.AreaAdapter;
+import com.example.mealplanner.ui.adapters.AreaAdapter;
 import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
@@ -24,7 +23,6 @@ import com.example.mealplanner.model.Area;
 import com.example.mealplanner.presenters.fragment.AreasPresenter;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 
 public class CountriesFragment extends Fragment {

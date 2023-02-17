@@ -45,5 +45,7 @@
     <string name="confirm_your_password">Confirm Your password</string>
     <string name="username">Username</string>
     <string name="e_mail">E-mail</string>
+    <string name="tv_you_may_also_like">You may also like</string>
+    <string name="tv_daily_inspiration">Daily Inspiration</string>
 
 </resources>

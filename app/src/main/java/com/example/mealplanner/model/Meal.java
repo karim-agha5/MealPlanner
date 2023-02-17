@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.example.mealplanner.data.localdb.ArrayConverter;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
@@ -20,27 +21,34 @@ public class Meal {
 
     @NonNull
     @ColumnInfo(name = "meal_id")
+    @SerializedName("idMeal")
     private String id;
 
     @ColumnInfo(name = "name")
+    @SerializedName("strMeal")
     private String name;
 
     @ColumnInfo(name = "category")
+    @SerializedName("strCategory")
     private String category;
 
     @ColumnInfo(name = "area")
+    @SerializedName("strArea")
     private String area;
 
     @ColumnInfo(name = "instructions")
+    @SerializedName("strInstructions")
     private String instructions;
 
     @ColumnInfo(name = "image_url")
+    @SerializedName("strMealThumb")
     private String imageUrl;
 
     @ColumnInfo(name = "image_path")
     private String imagePath;
 
     @ColumnInfo(name = "youtube_video_url")
+    @SerializedName("strYoutube")
     private String youtubeVideoUrl;
 
     @ColumnInfo(name = "ingredients")
