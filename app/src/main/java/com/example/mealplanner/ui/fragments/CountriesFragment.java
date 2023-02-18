@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -35,7 +36,8 @@ public class CountriesFragment extends Fragment {
     private ProgressDialogHelper progressDialogHelper;
 
     private AreasPresenter areasPresenter;
-
+    private CardView area;
+    private View view;
     public CountriesFragment() {
         // Required empty public constructor
     }
@@ -59,6 +61,8 @@ public class CountriesFragment extends Fragment {
         rv = view.findViewById(R.id.recycleViewArea);
         countries = new ArrayList<>();
         handleAreasResponse();
+        area = view.findViewById(R.id.card_area);
+        this.view=view;
 
     }
 

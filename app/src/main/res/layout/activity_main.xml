@@ -32,7 +32,6 @@
         app:navGraph="@navigation/navigation_fragment" />
 
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"

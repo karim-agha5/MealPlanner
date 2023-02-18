@@ -1,4 +1,4 @@
-package com.example.mealplanner;
+package com.example.mealplanner.model;
 
 public class OnboardingItem {
     private int image;
