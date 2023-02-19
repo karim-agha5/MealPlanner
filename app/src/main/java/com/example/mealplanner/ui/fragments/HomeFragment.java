@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +28,7 @@ import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
+import com.example.mealplanner.model.AreaListResponse;
 import com.example.mealplanner.model.Meal;
 import com.example.mealplanner.presenters.contract.HomePresenterContract;
 import com.example.mealplanner.presenters.fragment.HomePresenter;
@@ -176,4 +179,5 @@ public class HomeFragment extends Fragment {
 
         return new ArrayList<>(uniqueNumbersSet);
     }
+
 }

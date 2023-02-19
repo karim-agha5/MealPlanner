@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})
 @TypeConverters(ArrayConverter.class)
-public class Meal {
+public class Meal implements Serializable {
 
     @NonNull
     @ColumnInfo(name = "user_id")
@@ -62,6 +62,8 @@ public class Meal {
     private boolean isFavorite;
     @ColumnInfo(name = "date")
     private Date date;
+
+
 
     public Meal(){}
 

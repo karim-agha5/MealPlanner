@@ -30,8 +30,7 @@ public class RandomMealsRepository {
 
         DataLayerResponse<ArrayList<Meal>> dataLayerResponse = new DataLayerResponse<>();
 
-        Observable<RandomMealsResponse> randomMealsResponseObservable =
-                randomMealsRemoteService.getRandomMeals();
+        Observable<RandomMealsResponse> randomMealsResponseObservable = randomMealsRemoteService.getRandomMeals();
         randomMealsResponseObservable.subscribe(
                 e -> {
                     dataLayerResponse.setStatus(Status.SUCCESS);

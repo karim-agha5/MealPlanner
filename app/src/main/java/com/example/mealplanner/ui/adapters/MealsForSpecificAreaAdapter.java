@@ -1,36 +1,44 @@
 package com.example.mealplanner.ui.adapters;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.annotation.Nullable;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.mealplanner.R;
 import com.example.mealplanner.model.Meal;
+import com.example.mealplanner.ui.fragments.CountriesFragmentDirections;
+import com.example.mealplanner.ui.fragments.MealsForSpecificAreaFragment;
+import com.example.mealplanner.ui.fragments.MealsForSpecificAreaFragmentDirections;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.grpc.Context;
 
 public class MealsForSpecificAreaAdapter extends RecyclerView.Adapter<MealsForSpecificAreaAdapter.ViewHolder> {
 
-    private RecyclerView recyclerView;
-    private List<Meal> meal;
-    private LinearLayoutManager layoutManager;
+    private ArrayList<Meal> meals;
     private Context context;
+    private View view;
 
 
-
-    public MealsForSpecificAreaAdapter( List<Meal> _meal){
-        this.meal =  _meal;
+    public MealsForSpecificAreaAdapter(final ArrayList<Meal> meals) {
+        this.meals = meals;
     }
+
     @NonNull
     @Override
     public MealsForSpecificAreaAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,31 +47,32 @@ public class MealsForSpecificAreaAdapter extends RecyclerView.Adapter<MealsForSp
 
     @Override
     public void onBindViewHolder(@NonNull MealsForSpecificAreaAdapter.ViewHolder holder, int position) {
-        Meal meals = meal.get(position);
-        Glide.with(holder.itemView).load(meals.getImageUrl()).into(holder.image);
-        holder.name.setText(meals.getName());
+        Meal meal = meals.get(position);
+        Glide.with(holder.itemView).load(meal.getImageUrl()).into(holder.image);
+        holder.name.setText(meal.getName());
 
+        holder.itemView.setOnClickListener((view1)->{
+            NavDirections directions =
+                    MealsForSpecificAreaFragmentDirections.actionMealsForSpecificAreaFragmentToDetailsScreenFragment(meals.get(position));
+            Navigation.findNavController(view).navigate(directions);
+
+
+        });
     }
 
     @Override
     public int getItemCount() {
-        return meal.size();
+        return meals.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
         TextView name;
         ImageView image;
-        RelativeLayout layout;
-
-        TextView area;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.area_meal);
             image = itemView.findViewById(R.id.meal_image);
-            layout = itemView.findViewById(R.id.recycleViewArea);
-            area = itemView.findViewById(R.id.areaTxt);
         }
     }
 }

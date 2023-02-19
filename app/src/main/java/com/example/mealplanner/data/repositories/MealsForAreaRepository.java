@@ -1,50 +1,64 @@
 package com.example.mealplanner.data.repositories;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.mealplanner.data.DataLayerResponse;
+import com.example.mealplanner.data.api.responses.RandomMealsResponse;
+import com.example.mealplanner.data.datasource.meals.RandomMealsRemoteService;
+import com.example.mealplanner.data.datasource.meals.impl.MealsForSpecificAreaRemoteRepo;
+import com.example.mealplanner.data.datasource.meals.impl.MealsForSpecificAreaService;
+import com.example.mealplanner.helper.Status;
+import com.example.mealplanner.model.AreaListResponse;
 import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.network.RetrofitManager;
+import com.example.mealplanner.network.NetworkCallBack;
 import com.example.mealplanner.presenters.contract.MealsForSpecificAreaContract;
 import com.example.mealplanner.presenters.fragment.MealsForSpecificAreaPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
 public class MealsForAreaRepository {
 
-    private static MealsForAreaRepository areaRepository = null;
-    private MealsForSpecificAreaContract mealsForSpecificAreaContract;
-    private MealsForSpecificAreaPresenter mealsForSpecificAreaPresenter;
-    private List<Meal> meal = new ArrayList<>();
-    private static final String TAG = "mealsForArea";
-    private RetrofitManager retrofit;
+    private MealsForSpecificAreaRemoteRepo remoteRepo;
 
-    public MealsForAreaRepository(final MealsForSpecificAreaContract mealsForSpecificAreaContract) {
-        this.mealsForSpecificAreaContract = mealsForSpecificAreaContract;
+    private final String TAG = "Exception";
+
+    public MealsForAreaRepository() {
+        remoteRepo = new MealsForSpecificAreaRemoteRepo();
     }
 
-    public void getAllMeals(String country) {
-                 retrofit.getApi()
-                 .getMealsOfSelectedArea(country)
-                 .subscribeOn(Schedulers.io())
-                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        next -> {
-                            meal = next.getMeal();
-                        },
-                        error -> {
-                            Log.i(TAG, "onViewCreated: " + error.getMessage());
-                        },
-                        () -> {
-                            mealsForSpecificAreaPresenter.onSuccessResult(meal);
-                        }
-                );
+
+    public void getAllMeals(String country,  NetworkCallBack networkCallBack ){
+        remoteRepo.getAllMeals(country, networkCallBack);
+
+//        MutableLiveData<DataLayerResponse<ArrayList<Meal>>> response =
+//                new MutableLiveData<>();
+//
+//        DataLayerResponse<ArrayList<Meal>> dataLayerResponse = new DataLayerResponse<>();
+//
+//        Observable<AreaListResponse> areaMealsResponseObservable =
+//                mealsForSpecificAreaService.getAllMeals();
+//        areaMealsResponseObservable.subscribe(
+//                e -> {
+//                    dataLayerResponse.setStatus(Status.SUCCESS);
+//                    dataLayerResponse.setWrappedResponse(e.getMeal());
+//                    response.postValue(dataLayerResponse);
+//                    Log.i(TAG, "getAllMeals: "+e.getMeal().get(0).getName());
+//                },
+//                error -> {
+//                    dataLayerResponse.setStatus(Status.FAILURE);
+//                    dataLayerResponse.setMessage("Unable to retrieve meals for you.");
+//                    response.postValue(dataLayerResponse);
+//                }
+//        );
+//
+//        return response;
     }
 }
