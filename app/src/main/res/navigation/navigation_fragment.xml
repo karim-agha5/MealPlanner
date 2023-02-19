@@ -40,9 +40,6 @@
         <action
             android:id="@+id/action_countries_fragment_to_mealsForSpecificAreaFragment"
             app:destination="@id/mealsForSpecificAreaFragment" />
-        <argument
-            android:name="area"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/search_fragment"
@@ -52,7 +49,6 @@
         android:id="@+id/home_fragment"
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
         tools:layout="@layout/row_item" />
-<<<<<<< HEAD
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.mealplanner.ui.fragments.LoginFragment"
@@ -61,8 +57,40 @@
     <fragment
         android:id="@+id/mealsForSpecificAreaFragment"
         android:name="com.example.mealplanner.ui.fragments.MealsForSpecificAreaFragment"
-        android:label="fragment_meals_for_specific_area"
+        android:label="fragment_meals_for_specific_area">
+        <action
+            android:id="@+id/action_mealsForSpecificAreaFragment_to_detailsScreenFragment2"
+            app:destination="@id/detailsScreenFragment2" />
+        <argument
+            android:name="area"
+            app:argType="string" />
+    </fragment>
+
         tools:layout="@layout/fragment_meals_for_specific_area" />
-=======
->>>>>>> da1397e0f6bc5e88d85d145c8d01255dfe7f36e1
+
+        tools:layout="@layout/fragment_meals_for_specific_area" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mealsForSpecificAreaFragment_to_detailsScreenFragment"
+            app:destination="@id/detailsScreenFragment" />
+    <fragment
+        android:id="@+id/detailsScreenFragment2"
+        android:name="com.example.mealplanner.ui.fragments.DetailsScreenFragment"
+        android:label="DetailsScreenFragment" >
+        <argument
+            android:name="mealDetails"
+            app:argType="com.example.mealplanner.model.Meal" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsScreenFragment"
+        android:name="com.example.mealplanner.ui.fragments.DetailsScreenFragment"
+        android:label="DetailsScreenFragment" >
+        <argument
+            android:name="mealDetails"
+            app:argType="com.example.mealplanner.model.Meal" />
+    </fragment>
+
 </navigation>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.DataLayerResponse;
+import com.example.mealplanner.data.repositories.MealsForAreaRepository;
+import com.example.mealplanner.helper.AlertDialogHelper;
+import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.model.Meal;
 import com.example.mealplanner.network.NetworkCallBack;
 import com.example.mealplanner.presenters.contract.MealsForSpecificAreaContract;
@@ -28,24 +33,27 @@ import java.util.List;
 
 import io.grpc.Context;
 
-public class MealsForSpecificAreaFragment extends Fragment implements NetworkCallBack , MealsForSpecificAreaContract {
+public class MealsForSpecificAreaFragment extends Fragment  {
 
     private ImageView mealImage;
     private TextView mealTxt;
 
      private TextView areaTxt;
+    private ProgressDialogHelper progressDialogHelper;
     private MealsForSpecificAreaAdapter mealsForSpecificAreaAdapter;
     private MealsForSpecificAreaPresenter mealsForSpecificAreaPresenter;
+    private MealsForSpecificAreaContract mealsForSpecificAreaContract;
+    private MealsForAreaRepository mealsForAreaRepository;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayout;
-    private List<Meal> mealsItemList = new ArrayList<>();
     private ProgressBar progressBar;
     private static final String TAG = "MealForSpecificArea";
-    private Context context;
+    private String country;
 
     public MealsForSpecificAreaFragment() {
         // Required empty public constructor
+        mealsForSpecificAreaContract = new MealsForSpecificAreaPresenter(this);
     }
 
 
@@ -69,39 +77,44 @@ public class MealsForSpecificAreaFragment extends Fragment implements NetworkCal
         mealTxt = view.findViewById(R.id.area_meal);
         recyclerView = view.findViewById(R.id.recycleView_meals);
         progressBar = view.findViewById(R.id.progressBar);
-        areaTxt = view.findViewById(R.id.areaTxt);
-        String country = null;
-        mealsForSpecificAreaPresenter = new MealsForSpecificAreaPresenter(this);
-        mealsForSpecificAreaPresenter.getAllMeal(country);
 
+        country = MealsForSpecificAreaFragmentArgs.fromBundle(getArguments()).getName();
 
+        startProgressDialog();
+        mealsForSpecificAreaContract.getAllMeals(country);
+    }
+
+    private void startProgressDialog(){
+        progressDialogHelper =
+                new ProgressDialogHelper(
+                        getActivity(),
+                        null,
+                        "Hold on for a moment"
+                );
+        progressDialogHelper.startProgressDialog();
+    }
+
+    private void startAlertDialog(String errorMessage){
+        AlertDialogHelper alertDialogHelper =
+                new AlertDialogHelper(
+                        getActivity(),
+                        "Error",
+                        errorMessage
+                );
+
+        alertDialogHelper.startAlertDialog();
     }
 
 
-    @Override
-    public void onSuccessResult(List<Meal> meals) {
-        mealsItemList = meals;
-        LinearLayoutManager linearLayout = new LinearLayoutManager(requireContext());
-        linearLayout.setOrientation(RecyclerView.VERTICAL);
-        mealsForSpecificAreaAdapter = new MealsForSpecificAreaAdapter(mealsItemList);
-        recyclerView.setLayoutManager(linearLayout);
+    public void showData(ArrayList<Meal> meals) {
+        progressDialogHelper.stopProgressDialog();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mealsForSpecificAreaAdapter = new MealsForSpecificAreaAdapter(meals);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mealsForSpecificAreaAdapter);
 
     }
 
-    @Override
-    public void onFailureResult(String errorMsg) {
-        Log.i(TAG, "onFailureResult: "+errorMsg.toString());
 
-    }
-
-    @Override
-    public void getAllMeal(String country) {
-
-    }
-
-    @Override
-    public void addToFavorite(Meal meals) {
-
-    }
 }

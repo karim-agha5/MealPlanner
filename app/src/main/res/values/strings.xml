@@ -45,13 +45,17 @@
     <string name="confirm_your_password">Confirm Your password</string>
     <string name="username">Username</string>
     <string name="e_mail">E-mail</string>
-<<<<<<< HEAD
+
     <string name="tv_you_may_also_like">You may also like</string>
     <string name="tv_daily_inspiration">Daily Inspiration</string>
-=======
+
     <string name="category">Categories</string>
     <string name="meals">Meals</string>
     <string name="ingediant">Ingrediants</string>
->>>>>>> develop
+    <string name="add_to_week_plan">Week Plan</string>
+    <string name="steps">Steps</string>
+    <string name="area">Area</string>
+    <string name="btn_addToCalendar">Add To Calendar</string>
+
 
 </resources>

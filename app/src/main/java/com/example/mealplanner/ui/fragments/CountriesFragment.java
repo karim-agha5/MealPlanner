@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,7 @@ import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.model.Area;
 import com.example.mealplanner.presenters.fragment.AreasPresenter;
+import com.example.mealplanner.ui.fragments.CountriesFragmentDirections;
 
 import java.util.ArrayList;
 
