@@ -33,11 +33,21 @@ public class YouMayAlsoLikeAdapter extends RecyclerView.Adapter<YouMayAlsoLikeAd
 
     private Context context;
     private ArrayList<Meal> listOfMeals;
+    private Drawable[] images;
 
     public YouMayAlsoLikeAdapter(Context context,ArrayList<Meal> listOfMeals){
         this.context = context;
         this.listOfMeals = listOfMeals;
     }
+
+
+
+    public YouMayAlsoLikeAdapter(Context context,ArrayList<Meal> listOfMeals,Drawable[] images){
+        this.context = context;
+        this.listOfMeals = listOfMeals;
+        this.images = images;
+    }
+
 
 
     public static class CustomViewHolder extends RecyclerView.ViewHolder{
@@ -78,20 +88,34 @@ public class YouMayAlsoLikeAdapter extends RecyclerView.Adapter<YouMayAlsoLikeAd
 
     private void handleImageView(CustomViewHolder holder,int position){
 
-        Glide.with(context)
-                .load(listOfMeals.get(position).getImageUrl())
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        holder.imageLoadingProgressBar.setVisibility(View.GONE);
-                        holder.ivMealImagePreview.setVisibility(View.VISIBLE);
-                        holder.ivMealImagePreview.setImageDrawable(resource);
-                    }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
+        if(images[position + 1] == null){
 
-                    }
-                });
+            Glide.with(context)
+                    .load(listOfMeals.get(position).getImageUrl())
+                    .into(new CustomTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            holder.imageLoadingProgressBar.setVisibility(View.GONE);
+                            holder.ivMealImagePreview.setVisibility(View.VISIBLE);
+                            holder.ivMealImagePreview.setImageDrawable(resource);
+                            images[position + 1] = resource;
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                        }
+                    });
+
+        }
+
+
+        else{
+            holder.imageLoadingProgressBar.setVisibility(View.GONE);
+            holder.ivMealImagePreview.setVisibility(View.VISIBLE);
+            holder.ivMealImagePreview.setImageDrawable(images[position + 1]);
+        }
+
     }
 }
