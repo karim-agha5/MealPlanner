@@ -17,6 +17,7 @@ import com.example.mealplanner.ui.fragments.CountriesFragment;
 import com.example.mealplanner.ui.fragments.PlannedMealsFragment;
 import com.example.mealplanner.ui.fragments.ProfileFragment;
 import com.example.mealplanner.ui.fragments.SearchFragment;
+import com.example.mealplanner.ui.fragments.state.HomeFragmentState;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import io.reactivex.Observable;
@@ -25,12 +26,8 @@ import io.reactivex.Observable;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private HomeFragment homeFragment;
-    private SearchFragment searchFragment;
-    private CountriesFragment notificationsFragment;
-    private ProfileFragment profileFragment;
-    private PlannedMealsFragment plannedMealsFragment;
     private  NavController navController;
+    private HomeFragmentState homeFragmentState = new HomeFragmentState();
     private final String TAG = "Exception";
 
     @Override
@@ -42,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         initUI();
         setupBottomNavigationView();
 
+
         navController= Navigation.findNavController(this,R.id.container);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
@@ -50,26 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Initializes all the UI components
     private void initUI(){
-
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        homeFragment = new HomeFragment();
-        profileFragment = new ProfileFragment();
-        searchFragment = new SearchFragment();
-        notificationsFragment = new CountriesFragment();
-        plannedMealsFragment = new PlannedMealsFragment();
-
-
-/*
-
-        AreasRepository areasRepository = new AreasRepository();
-
-        MutableLiveData<DataLayerResponse<ArrayList<Area>>> response = areasRepository.getListOfAreas();
-
-        response.observe(this,areas -> Log.i("Exception",
-                "size -> " + response.getValue().getWrappedResponse().size() +
-                "\nStatus -> " + response.getValue().getStatus()));
-*/
-
     }
 
     /**
@@ -81,39 +60,34 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.home_fragment:
                     // TODO go to home fragment
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.home_fragment);
+                    navController.navigate(R.id.home_fragment);
                     Toast.makeText(this, "HOME", Toast.LENGTH_SHORT).show();
                     return true;
 
                 case R.id.search_fragment:
                     //TODO go to search fragment
-                   // getSupportFragmentManager().beginTransaction().replace(R.id.container,searchFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.search_fragment);
+                    navController.navigate(R.id.search_fragment);
                     Toast.makeText(this, "SEARCH", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.planned_meals_fragment:
                     //TODO go to planned meals fragment
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,plannedMealsFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.planned_meals_fragment);
+                    navController.navigate(R.id.planned_meals_fragment);
                     Toast.makeText(this, "PLANNED MEALS", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.countries_fragment:
                     //TODO go to notifications fragment
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,notificationsFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.countries_fragment);
+                    navController.navigate(R.id.countries_fragment);
                     Toast.makeText(this, "COUNTRIES", Toast.LENGTH_SHORT).show();
                     return true;
 
 
                 case R.id.profile_fragment:
                     //TODO go to profile fragment
-                    //getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
-                    Navigation.findNavController(MainActivity.this, R.id.container).navigate(R.id.profile_fragment);
+                    navController.navigate(R.id.profile_fragment);
                     Toast.makeText(this, "PROFILE", Toast.LENGTH_SHORT).show();
                     return true;
 
@@ -121,5 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 default: return false;
             }
         });
+    }
+
+    public HomeFragmentState getHomeFragmentState(){
+        return homeFragmentState;
     }
 }
