@@ -35,6 +35,7 @@ import com.example.mealplanner.presenters.fragment.WelcomePresenter;
 import com.example.mealplanner.ui.activities.MainActivity;
 
 
+import com.example.mealplanner.ui.activities.WelcomeActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -71,7 +72,7 @@ public class WelcomeFragment extends Fragment{
                 .build();
 
 
-        welcomePresenter = new WelcomePresenter();
+        welcomePresenter = new WelcomePresenter((WelcomeActivity)getActivity());
     }
 
     @Override

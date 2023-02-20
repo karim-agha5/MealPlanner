@@ -15,7 +15,6 @@ import com.google.android.gms.common.api.ApiException;
 * */
 public interface RegistrationRemoteService {
     //TODO Change the return type to wrap a User model
-   // MutableLiveData<Boolean> isSignedUpWithGoogle(GoogleSignInAccount account);
      MutableLiveData<DataLayerResponse<User>> signUpWithGoogle(Intent data) throws ApiException;
      MutableLiveData<DataLayerResponse<User>> signUpWithEmailAndPassword(String email, String password, Context context);
 

@@ -2,6 +2,7 @@ package com.example.mealplanner.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,11 @@ import com.example.mealplanner.model.User;
 import com.example.mealplanner.presenters.fragment.SignUpPresenter;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
+import com.example.mealplanner.ui.activities.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUpFragment extends Fragment implements Test {
+public class SignUpFragment extends Fragment {
 
     private EditText signUp_name;
     private EditText signUp_password;
@@ -56,7 +58,7 @@ public class SignUpFragment extends Fragment implements Test {
 
 
 
-        signUpPresenter = new SignUpPresenter();
+        signUpPresenter = new SignUpPresenter((WelcomeActivity)getActivity());
 
     }
 
@@ -104,11 +106,11 @@ public class SignUpFragment extends Fragment implements Test {
 
     }
 
-    @Override
+  /*  @Override
     public void notifyFragment() {
         homeScreenRedirection();
     }
-
+*/
     private void homeScreenRedirection(){
         Activity currentActivity = getActivity();
         Intent intent = new Intent(currentActivity, MainActivity.class);
@@ -152,7 +154,7 @@ public class SignUpFragment extends Fragment implements Test {
                 getTextsFromEditTexts();
 
                 if (isUserInputValid()) {
-
+                    //TODO handle if there's no internet connection
                     ProgressDialogHelper progressDialogHelper =
                             new ProgressDialogHelper(
                                     getActivity(),
@@ -200,15 +202,6 @@ public class SignUpFragment extends Fragment implements Test {
                             Destroy this activity and re-direct the user to the Home Screen
                          */
                         else{
-                            User user = dataLayerResponse.getWrappedResponse();
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    databaseAccess = new DatabaseAccess(getActivity());
-                                    databaseAccess.insertUser(user);
-
-                                }
-                            }).start();
                             Toast.makeText(getActivity(), "Thanks for signing up!",
                                     Toast.LENGTH_SHORT).show();
                             //TODO add the user to the db

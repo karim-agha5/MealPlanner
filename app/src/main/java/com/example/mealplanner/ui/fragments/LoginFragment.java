@@ -3,10 +3,15 @@ package com.example.mealplanner.ui.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import android.util.Log;
@@ -30,30 +35,33 @@ import com.example.mealplanner.model.User;
 import com.example.mealplanner.presenters.fragment.LoginPresenter;
 import com.example.mealplanner.ui.Test;
 import com.example.mealplanner.ui.activities.MainActivity;
+import com.example.mealplanner.ui.activities.WelcomeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class LoginFragment extends Fragment implements Test {
 
+public class LoginFragment extends Fragment{
+
+    private LiveData<User> liveData;
+
+    private User user;
     private LoginPresenter loginPresenter;
     private EditText etEmail;
     private EditText etPassword;
     private Button   btnLogin;
     private ProgressDialogHelper progressDialogHelper;
     private AlertDialogHelper alertDialogHelper;
-
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private final String TAG = "Exception";
-
-    private DatabaseAccess databaseAccess;
-
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginPresenter = new LoginPresenter();
+        loginPresenter = new LoginPresenter((WelcomeActivity)getActivity());
     }
 
     @Override
@@ -63,7 +71,6 @@ public class LoginFragment extends Fragment implements Test {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -71,7 +78,63 @@ public class LoginFragment extends Fragment implements Test {
 
 
 
+
+
+
+        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(@NonNull Network network) {
+                super.onAvailable(network);
+
+            }
+
+            @Override
+            public void onLost(@NonNull Network network) {
+                super.onLost(network);
+                Log.i(TAG, "onLost: no internet");
+                new Thread(
+                        () -> {
+                          liveData =   ((WelcomeActivity)getActivity()).getDatabaseAccess()
+                                    .getUserByEmail("kiom_karim@hotmail.com");
+                        }
+                ).start();
+
+                liveData.observe(LoginFragment.this,user1 -> {
+                    Log.i(TAG, "onLost: user id -> " + user1.getId());
+                });
+            }
+
+            @Override
+            public void onCapabilitiesChanged(@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
+                super.onCapabilitiesChanged(network, networkCapabilities);
+                final boolean unmetered = networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED);
+            }
+        };
+
+
+
+
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .build();
+
+
+
+
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getContext().getSystemService(ConnectivityManager.class);
+        connectivityManager.requestNetwork(networkRequest, networkCallback);
+
+
+
+
+
         btnLogin.setOnClickListener(view1 -> {
+
+            //TODO handle logging in if there's no internet connection
 
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
@@ -81,9 +144,11 @@ public class LoginFragment extends Fragment implements Test {
             }
 
             else{
-                startLoginLoading();
+               startLoginLoading();
+
+
                 // Attempt to Login using Email and Password
-                MutableLiveData<DataLayerResponse<User>> response =
+                MutableLiveData<DataLayerResponse<LiveData<User>>> response =
                         loginPresenter.login(
                                 email,
                                 password
@@ -92,28 +157,23 @@ public class LoginFragment extends Fragment implements Test {
 
                 // Observe over the response and react accordingly
                 response.observe(this,userDataLayerResponse -> {
+
+
                     stopLoginLoading();
 
-                    DataLayerResponse<User> dataLayerResponse = response.getValue();
+                    DataLayerResponse<LiveData<User>> dataLayerResponse = response.getValue();
 
                     Log.i(TAG, "status in observer -> " + dataLayerResponse.getStatus());
 
                     if(dataLayerResponse.getStatus() == Status.SUCCESS){
-                        Log.i(TAG, "Your login should be successful");
-                        User user = dataLayerResponse.getWrappedResponse();
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                databaseAccess = new DatabaseAccess(getActivity());
-                                String userID= user.getId();
 
-                            }
-                        }).start();
-                        Toast.makeText(getActivity(),
-                                "Welcome back",
-                                Toast.LENGTH_SHORT).show();
-                        homeScreenRedirection();
-                        //TODO propagate it to database to receive user's data if there's any
+                        dataLayerResponse.getWrappedResponse().observe(this,user1 -> {
+                            Toast.makeText(getActivity(),
+                                    "Welcome back",
+                                    Toast.LENGTH_SHORT).show();
+                            homeScreenRedirection();
+                        });
+
                     }
                     else{
                         startAlertDialog("Unable to login"
@@ -163,9 +223,9 @@ public class LoginFragment extends Fragment implements Test {
         alertDialogHelper.startAlertDialog();
     }
 
-    public void notifyFragment() {
+   /* public void notifyFragment() {
         homeScreenRedirection();
-    }
+    }*/
 
     private void homeScreenRedirection(){
         Activity currentActivity = getActivity();
@@ -178,10 +238,8 @@ public class LoginFragment extends Fragment implements Test {
     public void onStart() {
         super.onStart();
         // Get Current User if available
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
-            //TODO re-direct to Home Screen if the user already exists.
-            //TODO it already re-directs the uer to the Home Screen by itself
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser != null){
             homeScreenRedirection();
         }
     }

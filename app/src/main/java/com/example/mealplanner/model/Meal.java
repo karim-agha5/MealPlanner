@@ -3,6 +3,7 @@ package com.example.mealplanner.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -11,7 +12,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-@Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})
+/*@Entity(tableName = "meal", primaryKeys = {"user_id","meal_id"})*/
+@Entity(tableName = "meal"
+        ,foreignKeys = @ForeignKey(
+        entity = User.class,
+        parentColumns = "id",
+        childColumns = "user_id"
+), primaryKeys = {"user_id","meal_id"}
+)
 @TypeConverters(ArrayConverter.class)
 public class Meal {
 
@@ -59,6 +67,9 @@ public class Meal {
 
     @ColumnInfo(name = "is_favorite")
     private boolean isFavorite;
+
+    @ColumnInfo(name = "is_planned")
+    private boolean isPlanned;
     @ColumnInfo(name = "date")
     private Date date;
 
@@ -178,6 +189,14 @@ public class Meal {
 
     public void setFavorite(final boolean favorite) {
         this.isFavorite = favorite;
+    }
+
+    public boolean isPlanned() {
+        return this.isPlanned;
+    }
+
+    public void setPlanned(final boolean planned) {
+        this.isPlanned = planned;
     }
 
     public Date getDate() {

@@ -2,12 +2,14 @@ package com.example.mealplanner.data.datasource.auth.impl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteConstraintException;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.helper.Status;
 import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.RegistrationRemoteService;
@@ -28,35 +30,15 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class RegistrationRemoteServiceImpl implements RegistrationRemoteService {
 
-    private Test welcomeFragment;
     private FirebaseAuth mAuth;
+    private DatabaseAccess databaseAccess;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private final String TAG = "Exception";
-    public RegistrationRemoteServiceImpl(){
+    public RegistrationRemoteServiceImpl(DatabaseAccess databaseAccess){
         mAuth = FirebaseAuth.getInstance();
+        this.databaseAccess = databaseAccess;
     }
-
-
-    /**
-    * This method checks if the user has signed up before with their Google account
-    * @Returns true if the user ahs signed up before
-    * */
-
-   /* private MutableLiveData<Boolean> isSignedUpWithGoogle(GoogleSignInAccount account){
-        MutableLiveData<Boolean> isSignedUp = new MutableLiveData<>();
-        Task<SignInMethodQueryResult>  resultTask =
-                FirebaseAuth.getInstance().fetchSignInMethodsForEmail(account.getEmail());
-        // returns > 0 if signed up before
-        resultTask.addOnCompleteListener(e -> {
-            //TODO make a callback somewhere to receive the boolean value so you can fetch data from the db
-          //  isSignedUp.setValue(resultTask.getResult().getSignInMethods().size() != 0);
-            Log.i("Exception", "The user has signed up before");
-        });
-
-        return isSignedUp;
-    }
-*/
 
 
     //TODO change the DataLayerResponse from a raw type to a parameterized type
@@ -86,8 +68,10 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
                             dataLayerResponse.setWrappedResponse(user);
                             dataLayerResponse.setStatus(Status.SUCCESS);
                             response.setValue(dataLayerResponse);
-
-                           // welcomeFragment.notifyFragment(); //TODO replace with Presenter
+                            //TODO Save the user in the local DB
+                            new Thread(
+                                    () -> databaseAccess.insertUser(user)
+                            ).start();
                         }
                         else{
                             dataLayerResponse.setStatus(Status.FAILURE);
@@ -121,6 +105,7 @@ public class RegistrationRemoteServiceImpl implements RegistrationRemoteService 
 
                     dataLayerResponse.setWrappedResponse(user);
                     dataLayerResponse.setStatus(Status.SUCCESS);
+                    new Thread(() -> databaseAccess.insertUser(user)).start();
                 }
 
                 // If an exception occurs.

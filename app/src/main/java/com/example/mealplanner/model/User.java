@@ -7,6 +7,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -23,15 +24,20 @@ public class User {
     private String name;
 
     @Ignore
-    private List<String> meal;
+    private List<Meal> favoriteMeals;
+
+    @Ignore
+    private List<Meal> plannedMeals;
 
     public User() {
     }
 
-    public User(@NonNull final String id, final String name, final List<String> meal) {
+    public User(@NonNull final String id, final String name, final List<Meal> favoriteMeals
+    ,List<Meal> plannedMeals) {
         this.id = id;
         this.name = name;
-        this.meal = meal;
+        this.favoriteMeals = favoriteMeals;
+        this.plannedMeals = plannedMeals;
     }
 
     @NonNull
@@ -51,11 +57,19 @@ public class User {
         this.name = name;
     }
 
-    public List<String> getMeal() {
-        return this.meal;
+    public List<Meal> getFavoriteMeals() {
+        return this.favoriteMeals;
     }
 
-    public void setMeal(final List<String> meal) {
-        this.meal = meal;
+    public void setFavoriteMeals(final List<Meal> favoriteMeals) {
+        this.favoriteMeals = favoriteMeals;
+    }
+
+    public List<Meal> getPlannedMeals() {
+        return this.plannedMeals;
+    }
+
+    public void setPlannedMeals(final List<Meal> plannedMeals) {
+        this.plannedMeals = plannedMeals;
     }
 }

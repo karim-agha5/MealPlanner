@@ -12,6 +12,10 @@
     <string name="ic_notifications">Notifications</string>
     <string name="ic_profile">Profile</string>
 
+    <!-- More vert menu items -->
+    <string name="remove_from_favorite_meals">Remove From Favorite Meals</string>
+    <string name="add_to_planned_meals">Add To Planned Meals</string>
+
     <string name="have_account">Already have an account</string>
     <string name="login">Log In</string>
     <string name="sign_with_google">Google</string>
@@ -24,8 +28,7 @@
     <string name="sign">Sign Up</string>
     <string name="account">I already have an account</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="user">User Name</string>
     <string name="logOut">Log out</string>
     <string name="favorite">Favorite</string>
@@ -47,5 +50,6 @@
     <string name="e_mail">E-mail</string>
     <string name="tv_you_may_also_like">You may also like</string>
     <string name="tv_daily_inspiration">Daily Inspiration</string>
+    <string name="add_to_favorite_meals">Add To Favorite Meals</string>
 
 </resources>

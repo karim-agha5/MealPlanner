@@ -36,6 +36,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     // Lottie
     implementation "com.airbnb.android:lottie:5.2.0"
@@ -93,11 +94,16 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
 
+    // Swipe decorator
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+
     // t
     implementation 'androidx.room:room-rxjava2:2.5.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.1'
+
+
 
 }

@@ -60,9 +60,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homePresenterContract = new HomePresenter((MainActivity) getActivity());
-
-        Log.i(TAG, "onCreate: ");
     }
 
 
@@ -70,7 +67,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: ");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -85,13 +81,13 @@ public class HomeFragment extends Fragment {
         tvMealArea = view.findViewById(R.id.tv_meal_area);
         contentLoadingProgressBar = view.findViewById(R.id.daily_inspiration_image_loading_progress_bar);
 
-        Log.i(TAG, "onViewCreated: recyclerview -> "  + recyclerView.hashCode());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i(TAG, "onActivityCreated: ");
+
+        homePresenterContract = new HomePresenter((MainActivity)getActivity());
 
         homeFragmentState = homePresenterContract.getHomeFragmentState();
 
@@ -115,24 +111,17 @@ public class HomeFragment extends Fragment {
                      * If not, retrieve the saved bitmaps.
                      * */
                     images = homeFragmentState.getSavedImages();
-                    Log.i(TAG, "onActivityCreated: images -> " + images);
                     if(!homeFragmentState.hasSavedState()){
-                        Log.i(TAG, "onActivityCreated: inside if images -> " + images);
                         randomMeals = getRandomMealsList(dataLayerResponse.getWrappedResponse());
                         homeFragmentState.setRandomMealsList(randomMeals);
                         homeFragmentState.setHasSavedState(true);
-                        Log.i(TAG, "inside if state -> " + homeFragmentState.hashCode());
-                        Log.i(TAG, "inside if randomMeals -> " + randomMeals.hashCode());
 
                     }
 
 
                     else{
-                        Log.i(TAG, "onActivityCreated: inside else images -> " + images);
                         randomMeals = homeFragmentState.getRandomMealsList();
                         images = homeFragmentState.getSavedImages();
-                        Log.i(TAG, "inside else state -> " + homeFragmentState.hashCode());
-                        Log.i(TAG, "inside else randomMeals -> " + randomMeals.hashCode());
                     }
 
 
@@ -141,8 +130,7 @@ public class HomeFragment extends Fragment {
                     randomMeals.remove(0);
 
                     //  adapter = new YouMayAlsoLikeAdapter(getActivity(), randomMeals);
-                    Log.i(TAG, "onActivityCreated: right before constructor images -> " + images);
-                    adapter = new YouMayAlsoLikeAdapter(getActivity(),randomMeals,images);
+                    adapter = new YouMayAlsoLikeAdapter(getActivity(),homePresenterContract,randomMeals,images);
 
                     LinearLayoutManager manager =
                             new LinearLayoutManager(
@@ -172,16 +160,13 @@ public class HomeFragment extends Fragment {
              * If so, fill it with bitmaps through glide.
              * If not, retrieve the saved bitmaps.
              * */
-            images = homeFragmentState.getSavedImages();
+                images = homeFragmentState.getSavedImages();
 
 
 
 
-                Log.i(TAG, "onActivityCreated: inside else images -> " + images);
                 randomMeals = homeFragmentState.getRandomMealsList();
                 images = homeFragmentState.getSavedImages();
-                Log.i(TAG, "inside else state -> " + homeFragmentState.hashCode());
-                Log.i(TAG, "inside else randomMeals -> " + randomMeals.hashCode());
 
 
 
@@ -189,8 +174,7 @@ public class HomeFragment extends Fragment {
             handleDailyInspirationMeal(randomMeals.get(0));
             randomMeals.remove(0);
 
-            Log.i(TAG, "onActivityCreated: right before constructor images -> " + images);
-            adapter = new YouMayAlsoLikeAdapter(getActivity(),randomMeals,images);
+            adapter = new YouMayAlsoLikeAdapter(getActivity(),homePresenterContract,randomMeals,images);
 
             LinearLayoutManager manager =
                     new LinearLayoutManager(
@@ -234,7 +218,6 @@ public class HomeFragment extends Fragment {
 
 
         if(images[0] == null){
-            Log.i(TAG, "inside if images[0]" + images[0]);
 
             Glide.with(getActivity())
                     .load(dailyInspirationMeal.getImageUrl())
@@ -258,7 +241,6 @@ public class HomeFragment extends Fragment {
 
 
         else{
-            Log.i(TAG, "inside else images[0]" + images[0]);
             contentLoadingProgressBar.setVisibility(View.GONE);
             ivMealImage.setVisibility(View.VISIBLE);
             ivMealImage.setImageDrawable(images[0]);
@@ -294,6 +276,11 @@ public class HomeFragment extends Fragment {
         }
 
         return new ArrayList<>(uniqueNumbersSet);
+    }
+
+
+    public void insertMealIntoLocalDatabase(Meal meal){
+        homePresenterContract.addMealToLocalDatabase(meal);
     }
 
 }

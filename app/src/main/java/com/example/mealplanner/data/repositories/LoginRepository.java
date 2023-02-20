@@ -1,12 +1,16 @@
 package com.example.mealplanner.data.repositories;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.datasource.auth.LoginRemoteService;
 import com.example.mealplanner.data.datasource.auth.impl.LoginRemoteServiceImpl;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.model.User;
+
+import io.reactivex.Flowable;
 
 /**
  * TODO inject later
@@ -17,11 +21,11 @@ public class LoginRepository {
 
     private LoginRemoteService loginRemoteService;
 
-    public LoginRepository(){
-        loginRemoteService = new LoginRemoteServiceImpl();
+    public LoginRepository(DatabaseAccess databaseAccess){
+        loginRemoteService = new LoginRemoteServiceImpl(databaseAccess);
     }
 
-    MutableLiveData<DataLayerResponse<User>> login(String email, String password){
+    public MutableLiveData<DataLayerResponse<LiveData<User>>> login(String email, String password){
         return loginRemoteService.login(email,password);
     }
 }

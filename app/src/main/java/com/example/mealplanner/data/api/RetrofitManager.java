@@ -13,9 +13,7 @@ public class RetrofitManager {
 
     private final static String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
-    private RetrofitManager() {
-
-    }
+    private RetrofitManager() {}
 
     public static synchronized Retrofit getRetrofitInstance() {
         if (instance == null) {

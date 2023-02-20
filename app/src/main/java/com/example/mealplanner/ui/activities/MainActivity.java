@@ -11,7 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 import com.example.mealplanner.R;
 import com.example.mealplanner.data.api.responses.RandomMealsResponse;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.data.datasource.meals.impl.RandomMealsRemoteServiceImpl;
+import com.example.mealplanner.ui.contract.DatabaseDelegate;
 import com.example.mealplanner.ui.fragments.HomeFragment;
 import com.example.mealplanner.ui.fragments.CountriesFragment;
 import com.example.mealplanner.ui.fragments.PlannedMealsFragment;
@@ -19,30 +21,30 @@ import com.example.mealplanner.ui.fragments.ProfileFragment;
 import com.example.mealplanner.ui.fragments.SearchFragment;
 import com.example.mealplanner.ui.fragments.state.HomeFragmentState;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.Observable;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DatabaseDelegate {
 
     private BottomNavigationView bottomNavigationView;
     private  NavController navController;
     private HomeFragmentState homeFragmentState = new HomeFragmentState();
+    private DatabaseAccess databaseAccess;
     private final String TAG = "Exception";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
         initUI();
         setupBottomNavigationView();
-
+        databaseAccess = new DatabaseAccess(this);
 
         navController= Navigation.findNavController(this,R.id.container);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
-
 
     }
 
@@ -99,5 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
     public HomeFragmentState getHomeFragmentState(){
         return homeFragmentState;
+    }
+
+    @Override
+    public DatabaseAccess getDatabaseAccess() {
+        //TODO potential memory leak, as it was initialized in the Welcome Activity
+        // and this class isn't singleton. Check later.
+        return databaseAccess;
     }
 }

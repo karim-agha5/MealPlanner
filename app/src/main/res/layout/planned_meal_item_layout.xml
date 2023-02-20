@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="5dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favorite_meal_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/iv_planned_meal_preview"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            tools:src="@drawable/arrabiata_preview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/image_loading_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyle"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="@id/iv_planned_meal_preview"
+            app:layout_constraintEnd_toEndOf="@id/iv_planned_meal_preview"
+            app:layout_constraintTop_toTopOf="@id/iv_planned_meal_preview"
+            app:layout_constraintBottom_toBottomOf="@id/iv_planned_meal_preview"
+            />
+
+        <TextView
+            android:id="@+id/tv_planned_meal_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            tools:text="Arrabiata"
+            android:textSize="26sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_planned_meal_preview"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_planned_meal_area"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_planned_meal_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            tools:text="America"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_light"
+            app:layout_constraintEnd_toStartOf="@id/tv_date"
+            app:layout_constraintStart_toEndOf="@id/iv_planned_meal_preview"
+            app:layout_constraintTop_toBottomOf="@id/tv_planned_meal_name"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="test"
+            android:fontFamily="@font/poppins_light"
+            android:maxLines="3"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/tv_planned_meal_area"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_planned_meal_area"
+            app:layout_constraintBottom_toBottomOf="@id/tv_planned_meal_area"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

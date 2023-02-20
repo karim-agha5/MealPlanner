@@ -68,7 +68,6 @@ public class HomeFragmentState{
     }
 
     public void setRandomMealsList(final ArrayList<Meal> randomMealsList) {
-        Log.i("Exception", "setter -> " + randomMealsList.hashCode());
         this.randomMealsList = new ArrayList<>(randomMealsList);
     }
 

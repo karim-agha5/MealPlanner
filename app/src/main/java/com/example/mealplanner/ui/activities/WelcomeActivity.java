@@ -11,19 +11,21 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.mealplanner.R;
+import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
+import com.example.mealplanner.model.User;
+import com.example.mealplanner.ui.contract.DatabaseDelegate;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements DatabaseDelegate {
 
     private NavController navController;
+    private DatabaseAccess databaseAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
         setUpActionBarWithNavController();
-
-
+        databaseAccess = new DatabaseAccess(this);
     }
 
     /**
@@ -48,5 +50,10 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public DatabaseAccess getDatabaseAccess() {
+        return databaseAccess;
     }
 }

@@ -53,13 +53,13 @@
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintTop_toBottomOf="@id/cv_you_may_also_like_meal_contaienr"
         app:layout_constraintStart_toStartOf="@id/cv_you_may_also_like_meal_contaienr"
-        app:layout_constraintEnd_toStartOf="@id/ib_more_vert"
+        app:layout_constraintEnd_toStartOf="@id/ib_you_may_also_like_more_vert"
         />
 
 
 
     <ImageButton
-        android:id="@+id/ib_more_vert"
+        android:id="@+id/ib_you_may_also_like_more_vert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="More"

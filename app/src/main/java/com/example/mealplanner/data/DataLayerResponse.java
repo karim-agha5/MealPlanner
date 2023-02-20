@@ -2,6 +2,8 @@ package com.example.mealplanner.data;
 
 /*
 * Responsible for communicating within the Data Layer and with other layers
+* TODO - need to wrap another type inside this class. One type for the network call and the other type
+*  for the local database call
 * */
 
 import com.example.mealplanner.helper.Status;
