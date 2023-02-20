@@ -6,6 +6,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.example.mealplanner.R;
 import com.example.mealplanner.data.api.responses.RandomMealsResponse;
 import com.example.mealplanner.data.datasource.dbaccess.DatabaseAccess;
 import com.example.mealplanner.data.datasource.meals.impl.RandomMealsRemoteServiceImpl;
+import com.example.mealplanner.model.User;
 import com.example.mealplanner.ui.contract.DatabaseDelegate;
 import com.example.mealplanner.ui.fragments.HomeFragment;
 import com.example.mealplanner.ui.fragments.CountriesFragment;
@@ -45,6 +47,20 @@ public class MainActivity extends AppCompatActivity implements DatabaseDelegate 
 
         navController= Navigation.findNavController(this,R.id.container);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
+        new Thread(
+                () -> {
+                    User user = new User();
+                    user.setId(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    user.setName(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    try{
+                        databaseAccess.insertUser(user);
+                    }
+                    catch(SQLiteConstraintException ex){
+                        Log.i(TAG, "onCreate: duplicate id");
+                    }
+                }
+        ).start();
 
     }
 
