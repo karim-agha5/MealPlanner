@@ -11,6 +11,8 @@ public class RetrofitManager {
 
     private static Retrofit instance = null;
 
+    private  ApiService myApi;
+
     private final static String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
     private RetrofitManager() {
@@ -28,6 +30,10 @@ public class RetrofitManager {
                     .build();
         }
         return instance;
+    }
+
+    public ApiService getMyApi() {
+        return myApi;
     }
 
 }

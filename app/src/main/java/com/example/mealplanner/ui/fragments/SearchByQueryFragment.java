@@ -62,7 +62,7 @@ public class SearchByQueryFragment extends Fragment {
         searchType = SearchByQueryFragmentArgs.fromBundle(getArguments()).getSearchType();
         presenter.setSearchType(searchType);
         searchView = view.findViewById(R.id.search_by_query);
-       searchView.addTextChangedListener(new TextWatcher() {
+      /* searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -77,8 +77,8 @@ public class SearchByQueryFragment extends Fragment {
             public void afterTextChanged(Editable s) {
 
             }
-        });
-      /*  Observable.create(new ObservableOnSubscribe<Object>() {
+        });*/
+        Observable.create(new ObservableOnSubscribe<Object>() {
                     @Override
                     public void subscribe(@io.reactivex.rxjava3.annotations.NonNull ObservableEmitter<Object> emitter) throws Throwable {
 
@@ -91,22 +91,6 @@ public class SearchByQueryFragment extends Fragment {
                             @Override
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
                                 presenter.searchByQuery(s.toString());
-                              /*  if (!s.toString().isEmpty()) {
-                                    displayList.clear();
-                                    String search = s.toString().toLowerCase(Locale.ROOT);
-                                    for (String name :names) {
-                                        if (name.toLowerCase(Locale.ROOT).startsWith(search)) {
-                                            displayList.add(name);
-                                        }
-                                    }
-                                    myAdapter.notifyDataSetChanged();
-                                } else {
-
-                                    displayList.clear();
-                                    displayList.addAll(names);
-                                    myAdapter.notifyDataSetChanged();
-
-                                }
                             }
 
                             @Override
@@ -118,7 +102,7 @@ public class SearchByQueryFragment extends Fragment {
                     }
                 })
 
-                .subscribe(s -> Log.i("TAG", "onCreate: " + s));*/
+                .subscribe(s -> Log.i("TAG", "onCreate: " + s));
 
     }
 

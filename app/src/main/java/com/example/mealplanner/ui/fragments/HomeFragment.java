@@ -175,7 +175,7 @@ public class HomeFragment extends Fragment {
              * If so, fill it with bitmaps through glide.
              * If not, retrieve the saved bitmaps.
              * */
-            images = homeFragmentState.getSavedImages();
+           images = homeFragmentState.getSavedImages();
 
 
 

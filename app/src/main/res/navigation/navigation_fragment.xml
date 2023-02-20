@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_search_fragment_to_searchByQueryFragment"
             app:destination="@id/searchByQueryFragment" />
+        <action
+            android:id="@+id/action_search_fragment_to_allCategoryFragment"
+            app:destination="@id/allCategoryFragment" />
     </fragment>
 
     <fragment
@@ -55,6 +58,9 @@
         <argument
             android:name="searchType"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_searchByQueryFragment_to_detailsScreenFragment2"
+            app:destination="@id/detailsScreenFragment2" />
     </fragment>
 
     <fragment
@@ -101,6 +107,22 @@
         <argument
             android:name="mealDetails"
             app:argType="com.example.mealplanner.model.Meal" />
+    </fragment>
+    <fragment
+        android:id="@+id/allCategoryFragment"
+        android:name="com.example.mealplanner.ui.fragments.AllCategoryFragment"
+        android:label="AllCategoryFragment" >
+        <action
+            android:id="@+id/action_allCategoryFragment_to_searchCategoryFragment"
+            app:destination="@id/searchCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchCategoryFragment"
+        android:name="com.example.mealplanner.ui.fragments.SearchCategoryFragment"
+        android:label="SearchCategoryFragment" >
+        <argument
+            android:name="category"
+            app:argType="string" />
     </fragment>
 
 </navigation>

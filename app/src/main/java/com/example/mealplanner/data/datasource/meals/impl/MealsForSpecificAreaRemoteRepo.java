@@ -3,8 +3,9 @@ package com.example.mealplanner.data.datasource.meals.impl;
 import android.util.Log;
 
 import com.example.mealplanner.data.api.ApiService;
+import com.example.mealplanner.data.api.responses.MealsNetworkCallBack;
 import com.example.mealplanner.model.AreaListResponse;
-import com.example.mealplanner.network.MealsNetworkCallBack;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -56,4 +57,6 @@ public class MealsForSpecificAreaRemoteRepo implements MealsForSpecificAreaServi
 //                        .subscribeOn(Schedulers.io())
 //                        .observeOn(AndroidSchedulers.mainThread());
     }
+
+
 }

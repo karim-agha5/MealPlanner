@@ -1,7 +1,7 @@
 package com.example.mealplanner.data.repositories;
 
+import com.example.mealplanner.data.api.responses.MealsNetworkCallBack;
 import com.example.mealplanner.data.datasource.meals.impl.MealsForSpecificAreaRemoteRepo;
-import com.example.mealplanner.network.MealsNetworkCallBack;
 
 
 public class MealsForAreaRepository {

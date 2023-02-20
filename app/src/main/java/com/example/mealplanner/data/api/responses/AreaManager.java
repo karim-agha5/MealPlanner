@@ -1,4 +1,4 @@
-package com.example.mealplanner.network;
+package com.example.mealplanner.data.api.responses;
 
 import com.example.mealplanner.data.api.ApiService;
 import com.example.mealplanner.data.api.RetrofitManager;

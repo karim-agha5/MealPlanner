@@ -5,6 +5,8 @@ import com.example.mealplanner.data.api.responses.AreaResponse;
 import com.example.mealplanner.data.api.responses.SearchMealByQueryResponse;
 import com.example.mealplanner.data.api.responses.RandomMealsResponse;
 import com.example.mealplanner.model.AreaListResponse;
+import com.example.mealplanner.model.Meal;
+import com.example.mealplanner.model.RootCategoriesList;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -24,4 +26,11 @@ public interface ApiService {
 
     @GET("search.php")
     Call<SearchMealByQueryResponse> searchMealsByQuery(@Query("s") String firstLetterOfMeal);
+
+    @GET("list.php?c=list")
+    Observable<RootCategoriesList> getRootCategoriesList();
+
+
+    @GET("filter.php")
+    Observable<Meal> getMealsOfSelectedCategory(@Query("c") String categorySelected);
 }

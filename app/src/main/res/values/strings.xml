@@ -58,5 +58,8 @@
     <string name="area">Area</string>
     <string name="btn_addToCalendar">Add To Calendar</string>
     <string name="search_for_a_meal">Search for meal</string>
+    <string name="meals_filtered_by_category">Search by category</string>
+    <string name="add_to_weekplan">Add to week plan</string>
+    <string name="search_by_category">Search by category</string>
 
 </resources>

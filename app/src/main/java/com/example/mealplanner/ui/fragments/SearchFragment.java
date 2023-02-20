@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.example.mealplanner.R;
 import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.network.MealsNetworkCallBack;
 
 import java.util.ArrayList;
 
@@ -48,14 +47,22 @@ public class SearchFragment extends Fragment {
         mealsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToSearch(mealsType, view);
+
+               // navigateToSearch(mealsType, view);
+                NavDirections directions =
+                        SearchFragmentDirections.actionSearchFragmentToSearchByQueryFragment(mealsType);
+                Navigation.findNavController(view).navigate(directions);
             }
         });
         categoryCardView = view.findViewById(R.id.CardView_category);
         categoryCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigateToSearch(categoryType, view);
+
+                //navigateToSearch(categoryType, view);
+                NavDirections directions =
+                        SearchFragmentDirections.actionSearchFragmentToAllCategoryFragment();
+                Navigation.findNavController(view).navigate(directions);
             }
         });
         igredientCardView = view.findViewById(R.id.cardView_ingrediant);

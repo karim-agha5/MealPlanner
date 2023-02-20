@@ -1,8 +1,8 @@
 package com.example.mealplanner.presenters.fragment;
 
+import com.example.mealplanner.data.api.responses.MealsNetworkCallBack;
 import com.example.mealplanner.data.repositories.MealsForAreaRepository;
 import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.network.MealsNetworkCallBack;
 import com.example.mealplanner.presenters.contract.MealsForSpecificAreaContract;
 import com.example.mealplanner.ui.fragments.MealsForSpecificAreaFragment;
 
