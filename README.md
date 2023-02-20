@@ -11,7 +11,7 @@ Either clone the project or download the APK (will be available soon).
 
 ## How to use
 
-1 - Open up the application
+1 - Open up the application_
 2 - Sign-up through Google or with your own e-mail and password
 3 - Login using Google or your e-mail and password
 4 - Plan meals ahead or add them to your favorite by tapping on the three dots next to each meal's name
