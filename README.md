@@ -21,5 +21,5 @@ Either clone the project or download the APK (will be available soon).
 
 ## Contributors
 
-karim_agha@hotmail.com ,<br/>
+karim_agha@hotmail.com <br/>
 mariamadly712@gmail.com
