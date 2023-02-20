@@ -48,8 +48,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 // TODO go from splash to main screen
             //    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                 if(currentUser == null){
-                startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
-
+                    startActivity(new Intent(SplashScreenActivity.this, WelcomeActivity.class));
                 }
                 else{
                     startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
