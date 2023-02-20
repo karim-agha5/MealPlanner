@@ -2,6 +2,7 @@ package com.example.mealplanner.data.api;
 
 
 import com.example.mealplanner.data.api.responses.AreaResponse;
+import com.example.mealplanner.data.api.responses.SearchMealByQueryResponse;
 import com.example.mealplanner.data.api.responses.RandomMealsResponse;
 import com.example.mealplanner.model.AreaListResponse;
 
@@ -20,4 +21,7 @@ public interface ApiService {
 
     @GET("filter.php?")
     Call<AreaListResponse> getMealsOfSelectedArea(@Query("a") String country);
+
+    @GET("search.php")
+    Call<SearchMealByQueryResponse> searchMealsByQuery(@Query("s") String firstLetterOfMeal);
 }

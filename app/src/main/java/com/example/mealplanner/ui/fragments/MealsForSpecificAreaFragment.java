@@ -5,11 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,20 +16,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mealplanner.R;
-import com.example.mealplanner.data.DataLayerResponse;
 import com.example.mealplanner.data.repositories.MealsForAreaRepository;
 import com.example.mealplanner.helper.AlertDialogHelper;
 import com.example.mealplanner.helper.ProgressDialogHelper;
 import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.network.NetworkCallBack;
 import com.example.mealplanner.presenters.contract.MealsForSpecificAreaContract;
 import com.example.mealplanner.presenters.fragment.MealsForSpecificAreaPresenter;
-import com.example.mealplanner.ui.adapters.MealsForSpecificAreaAdapter;
+import com.example.mealplanner.ui.adapters.MealsAreaAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import io.grpc.Context;
 
 public class MealsForSpecificAreaFragment extends Fragment  {
 
@@ -40,7 +33,7 @@ public class MealsForSpecificAreaFragment extends Fragment  {
 
      private TextView areaTxt;
     private ProgressDialogHelper progressDialogHelper;
-    private MealsForSpecificAreaAdapter mealsForSpecificAreaAdapter;
+    private MealsAreaAdapter mealsAreaAdapter;
     private MealsForSpecificAreaPresenter mealsForSpecificAreaPresenter;
     private MealsForSpecificAreaContract mealsForSpecificAreaContract;
     private MealsForAreaRepository mealsForAreaRepository;
@@ -78,7 +71,7 @@ public class MealsForSpecificAreaFragment extends Fragment  {
         recyclerView = view.findViewById(R.id.recycleView_meals);
         progressBar = view.findViewById(R.id.progressBar);
 
-        country = MealsForSpecificAreaFragmentArgs.fromBundle(getArguments()).getName();
+        country = MealsForSpecificAreaFragmentArgs.fromBundle(getArguments()).getArea();
 
         startProgressDialog();
         mealsForSpecificAreaContract.getAllMeals(country);
@@ -110,9 +103,9 @@ public class MealsForSpecificAreaFragment extends Fragment  {
         progressDialogHelper.stopProgressDialog();
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
-        mealsForSpecificAreaAdapter = new MealsForSpecificAreaAdapter(meals);
+        mealsAreaAdapter = new MealsAreaAdapter(meals);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mealsForSpecificAreaAdapter);
+        recyclerView.setAdapter(mealsAreaAdapter);
 
     }
 

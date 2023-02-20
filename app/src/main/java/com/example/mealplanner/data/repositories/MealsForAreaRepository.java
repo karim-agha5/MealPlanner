@@ -1,27 +1,7 @@
 package com.example.mealplanner.data.repositories;
 
-import android.util.Log;
-
-import androidx.lifecycle.MutableLiveData;
-
-import com.example.mealplanner.data.DataLayerResponse;
-import com.example.mealplanner.data.api.responses.RandomMealsResponse;
-import com.example.mealplanner.data.datasource.meals.RandomMealsRemoteService;
 import com.example.mealplanner.data.datasource.meals.impl.MealsForSpecificAreaRemoteRepo;
-import com.example.mealplanner.data.datasource.meals.impl.MealsForSpecificAreaService;
-import com.example.mealplanner.helper.Status;
-import com.example.mealplanner.model.AreaListResponse;
-import com.example.mealplanner.model.Meal;
-import com.example.mealplanner.network.NetworkCallBack;
-import com.example.mealplanner.presenters.contract.MealsForSpecificAreaContract;
-import com.example.mealplanner.presenters.fragment.MealsForSpecificAreaPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import com.example.mealplanner.network.MealsNetworkCallBack;
 
 
 public class MealsForAreaRepository {
@@ -35,8 +15,8 @@ public class MealsForAreaRepository {
     }
 
 
-    public void getAllMeals(String country,  NetworkCallBack networkCallBack ){
-        remoteRepo.getAllMeals(country, networkCallBack);
+    public void getAllMeals(String country,  MealsNetworkCallBack mealsNetworkCallBack){
+        remoteRepo.getAllMeals(country, mealsNetworkCallBack);
 
 //        MutableLiveData<DataLayerResponse<ArrayList<Meal>>> response =
 //                new MutableLiveData<>();

@@ -41,7 +41,22 @@
     <fragment
         android:id="@+id/search_fragment"
         android:name="com.example.mealplanner.ui.fragments.SearchFragment"
-        android:label="fragment_search" />
+        android:label="fragment_search" >
+
+        <action
+            android:id="@+id/action_search_fragment_to_searchByQueryFragment"
+            app:destination="@id/searchByQueryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchByQueryFragment"
+        android:name="com.example.mealplanner.ui.fragments.SearchByQueryFragment"
+        android:label="fragment_search_meals_by_query">
+        <argument
+            android:name="searchType"
+            app:argType="string"/>
+    </fragment>
+
     <fragment
         android:id="@+id/home_fragment"
         android:name="com.example.mealplanner.ui.fragments.HomeFragment"
@@ -63,7 +78,6 @@
             android:name="area"
             app:argType="string" />
     </fragment>
-
 
         <argument
             android:name="name"

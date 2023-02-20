@@ -84,13 +84,13 @@ public class DetailsScreenFragment extends Fragment {
         mealsItem = DetailsScreenFragmentArgs.fromBundle(getArguments()).getMealDetails();
 
         mealName = view.findViewById(R.id.tv_title_details);
-        area = view.findViewById(R.id.tv_meal_area);
+        area = view.findViewById(R.id.tv_area_details);
         instructions = view.findViewById(R.id.tv_instructions_details);
         mealImage = view.findViewById(R.id.img_meal_details);
         video = view.findViewById(R.id.video);
 
         getLifecycle().addObserver((LifecycleObserver) video);
-        if (!mealsItem.getYoutubeVideoUrl().isEmpty()) {
+        if (mealsItem.getYoutubeVideoUrl() != null && !mealsItem.getYoutubeVideoUrl().isEmpty() ) {
 
             split = mealsItem.getYoutubeVideoUrl().split("=");
             youtubeURLisExists = true;
@@ -108,7 +108,11 @@ public class DetailsScreenFragment extends Fragment {
         }
 
         mealName.setText(mealsItem.getName());
-        area.setText(mealsItem.getArea());
+        if(mealsItem.getArea()!= null && !mealsItem.getArea().isEmpty()){
+            area.setText(mealsItem.getArea());
+        }else {
+            area.setVisibility(View.GONE);
+        }
         Glide.with(view.getContext()).load(mealsItem.getImageUrl()).into(mealImage);
         instructions.setText(mealsItem.getInstructions());
     }

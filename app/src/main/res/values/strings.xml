@@ -57,14 +57,6 @@
     <string name="steps">Steps</string>
     <string name="area">Area</string>
     <string name="btn_addToCalendar">Add To Calendar</string>
-
-    <string name="category">Categories</string>
-    <string name="meals">Meals</string>
-    <string name="ingediant">Ingrediants</string>
-
-    <string name="tv_you_may_also_like">You may also like</string>
-    <string name="tv_daily_inspiration">Daily Inspiration</string>
-
-
+    <string name="search_for_a_meal">Search for meal</string>
 
 </resources>
